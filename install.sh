@@ -1,14 +1,14 @@
 #!/bin/bash
 cd "$(dirname "$0")" || exit
-scripts_dir=$(pwd)/src/watch_for_jobs
+scripts_dir=$(pwd)/fileserver_to_hpc
+install_dir=~/.watch_for_jobs
 
-# shellcheck source=src/watch_for_jobs/configuration.sh
+# shellcheck source=fileserver_to_hpc/configuration.sh
 source "${scripts_dir}/configuration.sh"
 
-mkdir ~/.watch_for_jobs
+mkdir "$install_dir"
 
-cp "${scripts_dir}/configuration.sh" ~/.watch_for_jobs/
-cp "${scripts_dir}/start_job.sh" ~/.watch_for_jobs/
+cp "${scripts_dir}/configuration.sh" "$install_dir"
 
 # check if the workspace is writable
 if [ ! -w "$WFJ_WORKDIR" ]; then

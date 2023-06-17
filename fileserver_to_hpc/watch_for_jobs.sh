@@ -1,6 +1,8 @@
 #!/bin/bash
 # shellcheck source=configuration.sh
 source "$HOME"/.watch_for_jobs/configuration.sh
+source_dir="$(dirname "$0")"
+cd "$source_dir" || echo "failed to change directory to $source_dir" && exit 1
 
 if test "$(find "$WFJ_LOCKFILE" -mtime -2 2>/dev/null)"; then
   echo "Another instance of $0 is running wait till it finishes or delete $WFJ_LOCKFILE."
@@ -38,7 +40,7 @@ else
               echo "$job" >> "${done}.new"
               absolute_path=${job%workflow.zip}
               relative_path=${absolute_path##"$WFJ_WORKDIR"}
-              "${SUBMIT_JOB}" "$relative_path"
+              submit_jobs.sh "$relative_path"
               rm -f "$job"
           fi
         fi

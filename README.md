@@ -1,4 +1,4 @@
-# Fileserver2HPC
+# Fileserver to HPC
 
 Monitors a folder and automatically processes new subdirectories on an HPC cluster.
 
