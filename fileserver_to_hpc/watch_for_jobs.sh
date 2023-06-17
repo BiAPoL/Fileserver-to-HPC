@@ -8,12 +8,8 @@ if test "$(find "$WFJ_LOCKFILE" -mtime -2 2>/dev/null)"; then
   echo "Another instance of $0 is running wait till it finishes or delete $WFJ_LOCKFILE."
 else
   touch "$WFJ_LOCKFILE"
-  oldifs=$IFS
-  IFS='
-'
   #firstly we search for workflow.zip files in the working directory
-  data_dirs=$( find "$WFJ_WORKDIR" -name workflow.zip )
-  for job in $data_dirs; do
+  find "$WFJ_WORKDIR" -name workflow.zip | while read -r job; do
     if grep -q 'ignore\|example_workflows' <<< "$job"; then
       #if the directory contains "ignore" or "example_workflows", we ignore it
       echo "Ignoring: ${job%%workflow.zip}"
@@ -50,4 +46,3 @@ else
   done
   rm -f "$WFJ_LOCKFILE"
 fi
-IFS=$oldifs
