@@ -4,7 +4,7 @@
 WFJ_WORKDIR="/mnt/fileserver/process_on_taurus/"
 
 #HPC_WORKDIR is where the workspace is mounted on the HPC cluster
-HPC_WORKDIR="/grp/p_biapol/"
+HPC_WORKDIR="/grp/p_biapol/process_on_taurus/"
 
 #WFJ_LOCKFILE prevents the script from being run multiple times. In order to prevent permanent lockup in case of a crash the lockfile is ignored if it is older than two days
 WFJ_LOCKFILE="/tmp/watch_for_jobs.lock"
