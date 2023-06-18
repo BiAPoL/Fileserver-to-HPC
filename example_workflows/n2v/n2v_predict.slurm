@@ -14,16 +14,12 @@
 #start the cleanup batch job this will make sure cleanup also happens if the current job was cancelled it can also be used to restart jobs that have timed out
 #sbatch -t "00:10:00" -o "n2v-$SLURM_JOB_ID-cleanup.log" --dependency=afterany:$SLURM_JOB_ID n2v_cleanup.slurm "$@"
 
-target_dir=$(dirname "$1")
-WSDIR=$2
-model_dir=$3
-src_dir=$4
+data_dir=$(dirname "$1")
+src_dir=$data_dir/workflow
 
 # Execute parallel application
 echo "HOME: $HOME"
-echo "WSDIR: $WSDIR"
 echo "target_file: $1"
-echo "target_dir: $target_dir"
-echo "model_dir: $model_dir"
+echo "data_dir: $data_dir"
 echo "src_dir: $src_dir"
-srun singularity exec -C --env "WSDIR=$WSDIR" --writable-tmpfs --nv --pwd "$target_dir" -B "$HOME/.ssh:/.ssh" -B "/etc/OpenCL" -B "$target_dir" -B "$WSDIR" -B "$src_dir" ~/singularity-images/devbio-napari_n2v.sif python "$src_dir"/auto_n2v_predict.py "$1" "$model_dir"
+srun singularity exec -C --writable-tmpfs --nv --pwd "$data_dir" -B "$HOME/.ssh:/.ssh" -B "/etc/OpenCL" -B "$data_dir" ~/singularity-images/devbio-napari_n2v.sif python "$src_dir"/auto_n2v_predict.py "$1"

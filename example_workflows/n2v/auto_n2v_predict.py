@@ -15,11 +15,10 @@ if __name__ == "__main__":
 
     # define paths
     source_file = Path(sys.argv[1])
-    model_dir = Path(sys.argv[2])
     data_dir = source_file.parent
-    cache_dir = Path(os.environ.get('WSDIR'))
-    if not cache_dir.exists():
-        cache_dir.mkdir(parents=True)
+    model_dir = data_dir / 'model'
+    target_dir = data_dir / "denoised"
+    target_dir.mkdir(parents=True, exist_ok=True)
     
     # load config
     config_file = data_dir / 'config.json'
@@ -50,7 +49,7 @@ if __name__ == "__main__":
     print("Prediction shape: ", pred.shape)
 
     # save prediction
-    target_path = cache_dir / (source_file.name + '_N2V.tif')
+    target_path = target_dir / (source_file.name + '_N2V.tif')
     print("Saving: ", str(target_path))
     csbdeep.io.save_tiff_imagej_compatible(target_path, pred.astype(np.float32), 'ZYX')
     print('Done')
