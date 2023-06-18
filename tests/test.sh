@@ -6,4 +6,5 @@ tests_path=$(dirname "$0")
 
 rsync -r --delete "$tests_path"/test_data "$WFJ_WORKDIR"
 
-zip -r "$WFJ_WORKDIR"test_data/workflow.zip "$WFJ_WORKDIR"test_data/workflow
+cd "$WFJ_WORKDIR"test_data/ || exit 1
+zip -r workflow.zip workflow
