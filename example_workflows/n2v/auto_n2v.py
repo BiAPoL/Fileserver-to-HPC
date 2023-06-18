@@ -52,27 +52,23 @@ if __name__ == "__main__":
         predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
     else:
         training_data_dir = (data_dir / 'training')
+        config_file = data_dir / 'workflow' / 'config.json'
         if model_dir.exists():
-            if (training_data_dir / 'continue_training').exists():
-                # if there is training data, and model data
-                models = model_dir.glob("*")
-                if len(models) > 0:
-                    config = load_config(models[0] / 'config.json')
-                    if len(models) > 1:
-                        warn(f"found several models. Using the first model: {str(models[0])}")
-                elif (training_data_dir / 'config.json').exists():
-                    config = load_config(training_data_dir / 'config.json')
+            models = list(model_dir.glob("*"))
+            if len(models) > 0:
+                if (training_data_dir / 'continue_training').exists():
+                    # if there is training data, and model data
+                    if len(models) > 0:
+                        if (models[0] / 'config.json').exists():
+                            config_file = models[0] / 'config.json'
+                        if len(models) > 1:
+                            warn(f"found several models. Using the first model: {str(models[0])}")
                 else:
-                    config = load_config(data_dir / 'workflow' / 'config.json')
-            else:
-                predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
-                exit()
+                    predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
+                    exit()
         else:
             model_dir.mkdir(parents=True)
-            config_file = training_data_dir / 'config.json'
-            if not (config_file).exists():
-                config_file = data_dir / 'workflow' / 'config.json'
-            config = load_config(config_file)
+        config = load_config(config_file)
         train_model(training_data_dir, model_dir, config)
         predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
     
