@@ -6,7 +6,7 @@ relative_path=$1
 source "$HOME"/.fileserver_to_hpc/configuration.sh
 
 # allocate a workspace
-workspace_dir=$($SSH_COMMAND ws_allocate -F scratch -n fileserver_ro_hpc -d 10)
+workspace_dir=$($SSH_COMMAND ws_allocate -F scratch -n fileserver_to_hpc -d 10)
 
 # create a directory for the job
 export TARGET_DIR=$workspace_dir/$relative_path/
