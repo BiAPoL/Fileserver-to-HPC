@@ -26,7 +26,7 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path):
     slurmfile = src_dir / 'n2v_predict.slurm'
     for file in files:
         if not (data_dir / "denoised" / (file.name + "_N2V.tif")).exists():
-            args = ['sbatch', '-o', str(data_dir / 'log' / (file.name + '_n2v.out')), str(slurmfile), str(file)]
+            args = ['sbatch', '-o', str(data_dir / 'log' / (file.name + '_n2v.out')), str(slurmfile), str(file), os.environ.get('SIFDIR')]
             jobnum = submit_slurm_job(args)
             jobs.append(jobnum)
         else:

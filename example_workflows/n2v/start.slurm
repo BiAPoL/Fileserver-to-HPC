@@ -11,6 +11,14 @@
 # module purge
 # module load <module name>
 
+# Allocate workspace for singularity images
+SIFDIR=$(ws_allocate -F beegfs -n "singularity" -d 30)
+export SIFDIR
+echo "Workspace for singularity images: ${SIFDIR}"
+# Check allocation
+[ -z "${SIFDIR}" ] && echo "Error: Cannot allocate workspace $SIFDIR" && exit 1
+rsync -r "$HOME"/singularity-images/devbio-napari_n2v.sif "${SIFDIR}"/ || (echo "failed to copy singularity images to $SIFDIR" && exit 1)
+
 WSDIR=$(dirname "$(pwd)")
 
 src_dir=$WSDIR/workflow
@@ -32,4 +40,4 @@ if [ -e "$src_dir/before/" ]; then
     find "$1/before/" -name "*.sh" -exec {} \;
 fi
 
-srun singularity exec -C --env "CLEANUP_JOB_ID=$CLEANUP_JOB_ID" --writable-tmpfs --nv --pwd "$1" -B "$HOME/.ssh:/.ssh" -B "/etc/OpenCL" -B "$WSDIR" ~/singularity-images/devbio-napari_n2v.sif python "$src_dir"/auto_n2v.py "$WSDIR"
+srun singularity exec -C --env "SIFDIR=$SIFDIR,CLEANUP_JOB_ID=$CLEANUP_JOB_ID" --writable-tmpfs --nv --pwd "$1" -B "$HOME/.ssh:/.ssh" -B "/etc/OpenCL" -B "$WSDIR" "${SIFDIR}"/devbio-napari_n2v.sif python "$src_dir"/auto_n2v.py "$WSDIR"
