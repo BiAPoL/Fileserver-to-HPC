@@ -17,7 +17,7 @@ export SIFDIR
 echo "Workspace for singularity images: ${SIFDIR}"
 # Check allocation
 [ -z "${SIFDIR}" ] && echo "Error: Cannot allocate workspace $SIFDIR" && exit 1
-rsync -r "$HOME"/singularity-images/devbio-napari_n2v.sif "${SIFDIR}"/ || (echo "failed to copy singularity images to $SIFDIR" && exit 1)
+rsync -rv --ignore-existing "$HOME"/singularity-images/devbio-napari_n2v.sif "${SIFDIR}"/ || (echo "failed to copy singularity images to $SIFDIR" && exit 1)
 
 WSDIR=$(dirname "$(pwd)")
 
