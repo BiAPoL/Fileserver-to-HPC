@@ -3,7 +3,7 @@
 relative_path=$1
 
 # shellcheck source=configuration.sh
-source "$HOME"/.process_on_hpc/configuration.sh
+source "$HOME"/.fileserver_to_hpc/configuration.sh
 
 # allocate a workspace
 workspace_dir=$($SSH_COMMAND ws_allocate -F scratch -n process_on_hpc -d 10)

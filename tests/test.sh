@@ -1,10 +1,10 @@
 #!/bin/bash
 # shellcheck source=../src/scripts/configuration.sh
-source "$HOME"/.process_on_hpc/configuration.sh
+source "$HOME"/.fileserver_to_hpc/configuration.sh
 
 test_data=/projects/p_bioimage/auto_n2v/till/test_data
 
-rm "$HOME"/.process_on_hpc/watch_for_jobs_done_test.list
+rm "$HOME"/.fileserver_to_hpc/watch_for_jobs_done_test.list
 
 echo "cleanup old test data"
 rm -r "${WFJ_WORKDIR}test"

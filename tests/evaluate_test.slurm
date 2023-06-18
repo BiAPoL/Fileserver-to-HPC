@@ -4,7 +4,7 @@
 #SBATCH --time=01:00:00
 
 # shellcheck source=../src/scripts/configuration.sh
-source "$HOME"/.process_on_hpc/configuration.sh
+source "$HOME"/.fileserver_to_hpc/configuration.sh
 
 if [ "$( find "$WFJ_WORKDIR/test/pretrained/denoised/" -name "*_N2V.tif" | wc -l )" -eq 3 ]; then
     echo "pretrained successful"

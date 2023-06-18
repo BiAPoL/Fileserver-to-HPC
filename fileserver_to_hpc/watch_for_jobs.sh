@@ -1,6 +1,6 @@
 #!/bin/bash
 # shellcheck source=configuration.sh
-source "$HOME"/.process_on_hpc/configuration.sh
+source "$HOME"/.fileserver_to_hpc/configuration.sh
 source_dir="$(dirname "$0")"
 cd "$source_dir" || (echo "failed to change directory from $(pwd) to $source_dir" && exit 1)
 
@@ -20,8 +20,8 @@ else
         fi
         echo "enqueuing jobs"
         date
-        #we store the directories that have already been processed in this file in the .process_on_hpc directory
-        done="${HOME}/.process_on_hpc/watch_for_jobs_done.list"
+        #we store the directories that have already been processed in this file in the .fileserver_to_hpc directory
+        done="${HOME}/.fileserver_to_hpc/watch_for_jobs_done.list"
         # $done.new stores the new directory list. we clear it before we use it
         if [ -f "${done}.new" ]; then rm "${done}.new"; fi
         if grep -q "^$job\$" "$done"; then

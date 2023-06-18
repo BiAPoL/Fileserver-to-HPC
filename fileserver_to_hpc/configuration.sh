@@ -10,10 +10,10 @@ HPC_WORKDIR="/grp/p_biapol/process_on_taurus/"
 WFJ_LOCKFILE="/tmp/watch_for_jobs.lock"
 
 #WFJ_LOG keeps track of the output when we run as a cron job
-WFJ_LOG="${HOME}/.process_on_hpc/watch_for_jobs.log"
+WFJ_LOG="${HOME}/.fileserver_to_hpc/watch_for_jobs.log"
 
 #WFJ_JOB the name of the slurm file that is to be executed via sbatch
-SUBMIT_JOB="${HOME}/.process_on_hpc/submit_job.sh"
+SUBMIT_JOB="${HOME}/.fileserver_to_hpc/submit_job.sh"
 
 #define the ssh command that is used to connect to the HPC cluster, set to empty string "" if watch_for_jobs is run on the HPC cluster
 SSH_COMMAND="ssh taurus"
