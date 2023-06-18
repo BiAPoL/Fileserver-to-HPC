@@ -25,6 +25,7 @@ scp $WFJ_WORKDIR/"${relative_path}/workflow.zip" "${hostname}$TARGET_DIR" || (ec
 $SSH_COMMAND "unzip -o \"$TARGET_DIR\"workflow.zip -d \"$TARGET_DIR\"" || (echo "failed to unzip workflow files in $TARGET_DIR" && exit 1)
 
 # copy the job to the workspace
+echo "starting copy job from $SOURCE_DIR to $TARGET_DIR"
 COPY_JOB_ID=$( $SSH_COMMAND "${COPY_PREFIX}rsync -r \"$SOURCE_DIR\" \"$TARGET_DIR\"" ) || (echo "failed to start copy job" && exit 1)
 export COPY_JOB_ID=${COPY_JOB_ID##* }
 echo "copy job id: $COPY_JOB_ID"
