@@ -36,8 +36,7 @@ else
               echo "$job" >> "${done}.new"
               absolute_path=${job%workflow.zip}
               relative_path=${absolute_path##"$WFJ_WORKDIR"}
-              submit_jobs.sh "$relative_path"
-              rm -f "$job"
+              submit_jobs.sh "$relative_path" && rm -f "$job"
           fi
         fi
         #now we are done and can clean up
