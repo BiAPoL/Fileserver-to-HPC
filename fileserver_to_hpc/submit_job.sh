@@ -31,5 +31,6 @@ export COPY_JOB_ID=${COPY_JOB_ID##* }
 $SSH_COMMAND "mkdir -p \"$TARGET_DIR/log\""
 
 # submit the job
-job_id=$( $SSH_COMMAND "sbatch --dependency=\"$COPY_JOB_ID\" --export=SOURCE_DIR,TARGET_DIR,COPY_JOB_ID --parsable --output=\"$TARGET_DIR/log/start.out\" \"$TARGET_DIR/workflow/start.slurm\"" )
+
+job_id=$( $SSH_COMMAND "sbatch --dependency=\"$COPY_JOB_ID\" --export=SOURCE_DIR,TARGET_DIR,COPY_JOB_ID --parsable --output=\"$TARGET_DIR/log/start.out\" --chdir=\"$TARGET_DIR/workflow/\" \"$TARGET_DIR/workflow/start.slurm\"" )
 job_id=${job_id##* }
