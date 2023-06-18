@@ -1,6 +1,6 @@
 #!/bin/bash
 
-relative_path=$1
+relative_path=${1%%/}
 
 # shellcheck source=configuration.sh
 source "$HOME"/.fileserver_to_hpc/configuration.sh
@@ -21,7 +21,7 @@ else
 fi
 
 # make sure that the workflow files are availabel on the workspace
-scp $WFJ_WORKDIR/"${relative_path}workflow.zip" "${hostname}$TARGET_DIR" || (echo "failed to copy workflow files to $TARGET_DIR" && exit 1)
+scp $WFJ_WORKDIR/"${relative_path}/workflow.zip" "${hostname}$TARGET_DIR" || (echo "failed to copy workflow files to $TARGET_DIR" && exit 1)
 $SSH_COMMAND "unzip -f \"$TARGET_DIR\"workflow.zip -d \"$TARGET_DIR\"" || (echo "failed to unzip workflow files in $TARGET_DIR" && exit 1)
 
 # copy the job to the workspace
