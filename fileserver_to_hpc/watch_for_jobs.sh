@@ -30,9 +30,8 @@ else
           echo "$job" >> "${done}.new"
         else
           if unzip -t "$job" >/dev/null 2>&1; then
-              #if the zip file is valid, we unzip it and submit the job
+              #if the zip file is valid, we submit the job
               echo "submitting $job"
-              unzip -f "$job" -d "${job%workflow.zip}"
               echo "$job" >> "${done}.new"
               absolute_path=${job%workflow.zip}
               relative_path=${absolute_path##"$WFJ_WORKDIR"}
