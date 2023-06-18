@@ -1,14 +1,19 @@
 #!/bin/bash
-#SBATCH --job-name=process_test
+#SBATCH --job-name=start_test
+#SBATCH --partition=romeo
 
 echo "working directory: $(pwd)"
 
 mkdir ../results
 
 echo "copy job id: $COPY_JOB_ID"
+echo "source dir: $SOURCE_DIR"
+echo "target dir: $TARGET_DIR"
+
+mkdir -p "$TARGET_DIR/log"
 
 dependencies=()
-for file in ../*.txt; do
+for file in "$TARGET_DIR"/*.txt; do
     echo "submitting job for $file"
     dependencies+=("$( sbatch --parsable --dependency=afterok:"$COPY_JOB_ID" --output="$TARGET_DIR/log/${file}.out" process.slurm "$file" )")
 done
