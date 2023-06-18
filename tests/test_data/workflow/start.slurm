@@ -1,6 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=process_test
 
+echo "working directory: $(pwd)"
+
 mkdir ../results
 
 echo "copy job id: $COPY_JOB_ID"
