@@ -27,6 +27,7 @@ $SSH_COMMAND "unzip -o \"$TARGET_DIR\"workflow.zip -d \"$TARGET_DIR\"" || (echo 
 # copy the job to the workspace
 COPY_JOB_ID=$( $SSH_COMMAND "${COPY_PREFIX}rsync -r \"$SOURCE_DIR\" \"$TARGET_DIR\"" ) || (echo "failed to start copy job" && exit 1)
 export COPY_JOB_ID=${COPY_JOB_ID##* }
+echo "copy job id: $COPY_JOB_ID"
 
 $SSH_COMMAND "mkdir -p \"$TARGET_DIR/log\""
 
@@ -34,3 +35,4 @@ $SSH_COMMAND "mkdir -p \"$TARGET_DIR/log\""
 
 job_id=$( $SSH_COMMAND "sbatch --dependency=\"$COPY_JOB_ID\" --export=SOURCE_DIR,TARGET_DIR,COPY_JOB_ID --parsable --output=\"$TARGET_DIR/log/start.out\" --chdir=\"$TARGET_DIR/workflow/\" \"$TARGET_DIR/workflow/start.slurm\"" )
 job_id=${job_id##* }
+echo "submitted start job with id: $job_id"
