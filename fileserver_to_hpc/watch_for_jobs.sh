@@ -2,7 +2,6 @@
 # shellcheck source=configuration.sh
 source "$HOME"/.fileserver_to_hpc/configuration.sh
 source_dir="$(dirname "$0")"
-cd "$source_dir" || (echo "failed to change directory from $(pwd) to $source_dir" && exit 1)
 
 if test "$(find "$WFJ_LOCKFILE" -mtime -2 2>/dev/null)"; then
   echo "Another instance of $0 is running wait till it finishes or delete $WFJ_LOCKFILE."
@@ -36,7 +35,7 @@ else
               absolute_path=${job%workflow.zip}
               relative_path=${absolute_path##"$WFJ_WORKDIR"}
               echo "relative path: $relative_path"
-              submit_job.sh "$relative_path" && rm -f "$job"
+              "${source_dir%%/}/submit_job.sh" "$relative_path" && rm -f "$job"
           fi
         fi
         #now we are done and can clean up
