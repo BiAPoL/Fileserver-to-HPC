@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck source=../src/scripts/configuration.sh
+# shellcheck source=../fileserver_to_hpc/configuration.sh
 source "$HOME"/.fileserver_to_hpc/configuration.sh
 
 tests_path=$(dirname "$0")
