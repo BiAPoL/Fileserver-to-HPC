@@ -16,6 +16,7 @@
 
 data_dir=$(dirname "$1")
 src_dir=$data_dir/workflow
+SIFDIR=$2
 
 # Execute parallel application
 echo "HOME: $HOME"
