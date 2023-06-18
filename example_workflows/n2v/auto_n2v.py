@@ -63,15 +63,15 @@ if __name__ == "__main__":
                 elif (training_data_dir / 'config.json').exists():
                     config = load_config(training_data_dir / 'config.json')
                 else:
-                    config = load_config(data_dir / 'config.json')
+                    config = load_config(data_dir / 'workflow' / 'config.json')
             else:
                 predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
                 exit()
         else:
             model_dir.mkdir(parents=True)
-            config_file = data_dir / 'config.json'
-            if not config_file.exists():
-                config_file = data_dir / 'training' / 'config.json'
+            config_file = training_data_dir / 'config.json'
+            if not (config_file).exists():
+                config_file = data_dir / 'workflow' / 'config.json'
             config = load_config(config_file)
         train_model(training_data_dir, model_dir, config)
         predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)

@@ -21,7 +21,7 @@ if __name__ == "__main__":
     target_dir.mkdir(parents=True, exist_ok=True)
     
     # load config
-    config_file = data_dir / 'config.json'
+    config_file = data_dir / 'workflow' / 'config.json'
     if not config_file.exists():
         config_file = data_dir / 'training' / 'config.json'
     config = load_config(config_file)
