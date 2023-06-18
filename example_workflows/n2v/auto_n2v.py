@@ -22,7 +22,7 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path):
         files.extend(data_dir.glob('*' + type))
     print("predicting: ", files)
     jobs = []
-    src_dir = str(Path(__file__).parent)
+    src_dir = Path(__file__).parent
     slurmfile = src_dir / 'n2v_predict.slurm'
     for file in files:
         if not (data_dir / "denoised" / (file.name + "_N2V.tif")).exists():
