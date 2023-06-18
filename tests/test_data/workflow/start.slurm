@@ -10,12 +10,14 @@ echo "copy job id: $COPY_JOB_ID"
 echo "source dir: $SOURCE_DIR"
 echo "target dir: $TARGET_DIR"
 
-mkdir -p "$TARGET_DIR/results"
+mkdir -p "${TARGET_DIR}results"
 
 dependencies=()
-for file in "$TARGET_DIR"/*.txt; do
+for file in "$TARGET_DIR"*.txt; do
     echo "submitting job for $file"
-    dependencies+=("$( sbatch --parsable --dependency=afterok:"$COPY_JOB_ID" --output="$TARGET_DIR/log/${file}.out" process.slurm "$file" )")
+    filename=$(basename "$file")
+    outputfile="${TARGET_DIR}log/${filename%.*}.out"
+    dependencies+=("$( sbatch --parsable --output="$outputfile" process.slurm "$file" )")
 done
 cleanup_dependencies=$(IFS=,; echo "${dependencies[*]}")
 echo "submitting cleanup job dependent on jobs with ids: $cleanup_dependencies"
