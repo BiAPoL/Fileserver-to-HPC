@@ -10,7 +10,7 @@ echo "copy job id: $COPY_JOB_ID"
 echo "source dir: $SOURCE_DIR"
 echo "target dir: $TARGET_DIR"
 
-mkdir -p "$TARGET_DIR/log"
+mkdir -p "$TARGET_DIR/results"
 
 dependencies=()
 for file in "$TARGET_DIR"/*.txt; do
