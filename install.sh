@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$0")" || exit
 scripts_dir=$(pwd)/fileserver_to_hpc
-install_dir=~/.watch_for_jobs
+install_dir=~/.process_on_hpc
 
 # shellcheck source=fileserver_to_hpc/configuration.sh
 source "${scripts_dir}/configuration.sh"

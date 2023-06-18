@@ -3,10 +3,10 @@
 relative_path=$1
 
 # shellcheck source=configuration.sh
-source "$HOME"/.watch_for_jobs/configuration.sh
+source "$HOME"/.process_on_hpc/configuration.sh
 
 # allocate a workspace
-workspace_dir=$($SSH_COMMAND ws-allocate -F scratch -n watch_for_jobs -d 10)
+workspace_dir=$($SSH_COMMAND ws_allocate -F scratch -n process_on_hpc -d 10)
 
 # create a directory for the job
 export TARGET_DIR=$workspace_dir/$relative_path/
