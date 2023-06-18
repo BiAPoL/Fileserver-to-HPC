@@ -19,4 +19,4 @@ SUBMIT_JOB="${HOME}/.fileserver_to_hpc/submit_job.sh"
 SSH_COMMAND="ssh taurus"
 
 #prefix for the command used for copying data to the workspace of the HPC cluster
-COPY_PREFIX="dt"
+COPY_PREFIX="/sw/taurus/tools/slurmtools/default/bin/dt"
