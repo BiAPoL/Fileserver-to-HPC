@@ -2,7 +2,7 @@
 # shellcheck source=configuration.sh
 source "$HOME"/.watch_for_jobs/configuration.sh
 source_dir="$(dirname "$0")"
-cd "$source_dir" || echo "failed to change directory from $(pwd) to $source_dir" && exit 1
+cd "$source_dir" || (echo "failed to change directory from $(pwd) to $source_dir" && exit 1)
 
 if test "$(find "$WFJ_LOCKFILE" -mtime -2 2>/dev/null)"; then
   echo "Another instance of $0 is running wait till it finishes or delete $WFJ_LOCKFILE."
