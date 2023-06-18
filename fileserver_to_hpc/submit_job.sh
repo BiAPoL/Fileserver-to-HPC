@@ -10,7 +10,7 @@ workspace_dir=$($SSH_COMMAND ws_allocate -F scratch -n fileserver_to_hpc -d 10)
 
 # create a directory for the job
 export TARGET_DIR=$workspace_dir/$relative_path/
-export SOURCE_DIR=$HPC_WORKDIR/$relative_path/
+export SOURCE_DIR=${HPC_WORKDIR%%/}/$relative_path/
 $SSH_COMMAND "mkdir -p \"$TARGET_DIR\"" || (echo "failed to create directory $TARGET_DIR" && exit 1)
 
 # test if SSH_COMMAND is empty
