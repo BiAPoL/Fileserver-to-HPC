@@ -1,6 +1,6 @@
 {
     "axes": "TCZYX",
-    "train_epochs": 10,
+    "train_epochs": 30,
     "n2v_patch_shape": [
         16,
         64,

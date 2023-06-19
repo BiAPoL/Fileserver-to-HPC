@@ -14,7 +14,7 @@ def train_model(training_data_dir: Path, model_dir: Path, config: dict):
     if 'train_batch_size' not in config.keys():
         config['train_batch_size'] = 128
     if 'axes' not in config.keys():
-        config['axes'] = 'ZYXC'
+        config['axes'] = 'TCZYX'
         warn(f"Axes not configured, using default: {config['axes']}")
 
     files = []
