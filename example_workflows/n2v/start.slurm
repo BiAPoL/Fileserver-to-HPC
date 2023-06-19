@@ -24,7 +24,7 @@ WSDIR=$(dirname "$(pwd)")
 src_dir=$WSDIR/workflow
 
 #start the cleanup batch job this will make sure cleanup also happens if the current job was cancelled it can also be used to restart jobs that have timed out
-CLEANUP_JOB_ID=$(sbatch -o "${1}/log/cleanup_n2v.out" --dependency=afterany:"$SLURM_JOB_ID" "$src_dir"/n2v_cleanup.slurm "$WSDIR")
+CLEANUP_JOB_ID=$(sbatch -o "${WSDIR}/log/cleanup_n2v.out" --dependency=afterany:"$SLURM_JOB_ID" --export=ALL "$src_dir"/n2v_cleanup.slurm "$WSDIR")
 CLEANUP_JOB_ID=${CLEANUP_JOB_ID##* }
 export CLEANUP_JOB_ID
 echo "queued cleanup job: $CLEANUP_JOB_ID"
