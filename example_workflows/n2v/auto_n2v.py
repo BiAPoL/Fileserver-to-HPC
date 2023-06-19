@@ -10,7 +10,10 @@ from utils import load_config, supported_filetypes
 def submit_slurm_job(args):
     import subprocess
     process = subprocess.run(args, capture_output=True)
-    print('err: ', process.stderr)
+    err = process.stderr.strip().decode('utf-8')
+    out = process.stdout.strip().decode('utf-8')
+    if len(err) > 0:
+        print('err: ', process.stderr)
     print('out: ', process.stdout)
     jobnum = process.stdout.strip().decode('utf-8').split(' ')[-1]
     return jobnum
