@@ -17,6 +17,10 @@ Workflow for Fileserver to HPC that applies [Noise2Void](https://github.com/jugl
 7. Some time later, a folder called `denoised`, containing your denoised data, will appear. For example:`//fileserver/process_on_hpc/my_data/workflow.zip`
 
    The time may range from minutes to many hours, depending on hob busy the cluster is, whether or not you need to train a new n2v model, and the total amount of data to be denoised.
+8. If you want the same data to be processed again, (e.g. if you want to train longer):
+   * delete the files you want to be processed again from the `denoised` folder
+   * if you want to re-train, delete the `model` folder (and increase the number of epochs in `config.json`)
+   * rename your data folder. For example from `//fileserver/process_on_hpc/my_data` to `//fileserver/process_on_hpc/my_data1`
 
 ## Troubleshooting
 
