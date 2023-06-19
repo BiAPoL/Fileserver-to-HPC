@@ -31,11 +31,12 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path):
             jobs.append(jobnum)
         else:
             print("skipping already denoised file: ", str(file))
-    print("submitted jobs:", jobs)
-    cleanup_job_id = os.environ.get('CLEANUP_JOB_ID')
-    args = ['scontrol', 'update', 'job=' + cleanup_job_id, 'dependency="afterany:' + ','.join(jobs) + '"']
-    submit_slurm_job(args)
-    print("updated cleanup job dependencies")
+    if len(jobs) > 0:
+        print("submitted jobs:", jobs)
+        cleanup_job_id = os.environ.get('CLEANUP_JOB_ID')
+        args = ['scontrol', 'update', 'job=' + cleanup_job_id, 'dependency="afterany:' + ','.join(jobs) + '"']
+        submit_slurm_job(args)
+        print("updated cleanup job dependencies")
 
 
 if __name__ == "__main__":
