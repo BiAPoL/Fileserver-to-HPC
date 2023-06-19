@@ -26,15 +26,15 @@ $SSH_COMMAND "unzip -o \"$TARGET_DIR\"workflow.zip -d \"$TARGET_DIR\"" || (echo 
 $SSH_COMMAND "rm \"$TARGET_DIR\"workflow.zip"
 
 # copy the job to the workspace
-# echo "starting copy job from $SOURCE_DIR to $TARGET_DIR"
-# COPY_JOB_ID=$( $SSH_COMMAND "${COPY_PREFIX}rsync -r \"$SOURCE_DIR\" \"$TARGET_DIR\"" ) || (echo "failed to start copy job" && exit 1)
-# export COPY_JOB_ID=${COPY_JOB_ID##* }
-# echo "copy job id: $COPY_JOB_ID"
+echo "starting copy job from $SOURCE_DIR to $TARGET_DIR"
+COPY_JOB_ID=$( $SSH_COMMAND "${COPY_PREFIX}rsync -r \"$SOURCE_DIR\" \"$TARGET_DIR\"" ) || (echo "failed to start copy job" && exit 1)
+export COPY_JOB_ID=${COPY_JOB_ID##* }
+echo "copy job id: $COPY_JOB_ID"
 
 $SSH_COMMAND "mkdir -p \"$TARGET_DIR/log\""
 
 # submit the job
-# job_id=$( $SSH_COMMAND "export SOURCE_DIR=$SOURCE_DIR; export TARGET_DIR=$TARGET_DIR; export COPY_JOB_ID=$COPY_JOB_ID; sbatch --dependency=\"$COPY_JOB_ID\" --export=ALL --parsable --output=\"$TARGET_DIR/log/start.out\" --chdir=\"$TARGET_DIR/workflow/\" \"$TARGET_DIR/workflow/start.slurm\"" ) || (echo "failed to start main workflow job" && exit 1)
-job_id=$( $SSH_COMMAND "export SOURCE_DIR=$SOURCE_DIR; export TARGET_DIR=$TARGET_DIR; sbatch --export=ALL --parsable --output=\"$TARGET_DIR/log/start.out\" --chdir=\"$TARGET_DIR/workflow/\" \"$TARGET_DIR/workflow/start.slurm\"" ) || (echo "failed to start main workflow job" && exit 1)
+job_id=$( $SSH_COMMAND "export SOURCE_DIR=$SOURCE_DIR; export TARGET_DIR=$TARGET_DIR; export COPY_JOB_ID=$COPY_JOB_ID; sbatch --dependency=\"$COPY_JOB_ID\" --export=ALL --parsable --output=\"$TARGET_DIR/log/start.out\" --chdir=\"$TARGET_DIR/workflow/\" \"$TARGET_DIR/workflow/start.slurm\"" ) || (echo "failed to start main workflow job" && exit 1)
+# job_id=$( $SSH_COMMAND "export SOURCE_DIR=$SOURCE_DIR; export TARGET_DIR=$TARGET_DIR; sbatch --export=ALL --parsable --output=\"$TARGET_DIR/log/start.out\" --chdir=\"$TARGET_DIR/workflow/\" \"$TARGET_DIR/workflow/start.slurm\"" ) || (echo "failed to start main workflow job" && exit 1)
 job_id=${job_id##* }
 echo "submitted start job with id: $job_id"
