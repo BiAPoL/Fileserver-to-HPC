@@ -13,7 +13,7 @@ def submit_slurm_job(args):
     err = process.stderr.strip().decode('utf-8')
     out = process.stdout.strip().decode('utf-8')
     if len(err) > 0:
-        print('err: ', process.stderr)
+        print(f'Job {args} failed with error: {process.stderr}')
     print('out: ', process.stdout)
     jobnum = process.stdout.strip().decode('utf-8').split(' ')[-1]
     return jobnum
@@ -29,11 +29,12 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path):
     slurmfile = src_dir / 'n2v_predict.slurm'
     for file in files:
         if not (data_dir / "denoised" / (file.name + "_N2V.tif")).exists():
-            args = ['sbatch', '-o', str(data_dir / 'log' / (file.name + '_n2v.out')), str(slurmfile), str(file), os.environ.get('SIFDIR')]
+            args = ['sbatch', '-o', '"' + str(data_dir / 'log' / (file.name + '_n2v.out')) + '"', '"' + str(slurmfile) +'"', '"' + str(file) + '"', '"' + os.environ.get('SIFDIR') + '"']
             jobnum = submit_slurm_job(args)
             jobs.append(jobnum)
         else:
             print("skipping already denoised file: ", str(file))
+    jobs = [job for job in jobs if job != '']
     if len(jobs) > 0:
         print("submitted jobs:", jobs)
         cleanup_job_id = os.environ.get('CLEANUP_JOB_ID')
