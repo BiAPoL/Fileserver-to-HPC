@@ -19,7 +19,12 @@ export SIFDIR
 echo "Workspace for singularity images: ${SIFDIR}"
 # Check allocation
 [ -z "${SIFDIR}" ] && echo "Error: Cannot allocate workspace $SIFDIR" && exit 1
-rsync -rv --ignore-existing "$HOME"/singularity-images/devbio-napari_n2v.sif "${SIFDIR}"/ || (echo "failed to copy singularity images to $SIFDIR" && exit 1)
+
+# Pull singularity image from registry
+container_registry=oras://gitlab.mn.tu-dresden.de:8000/bia-pol/singularity-devbio-napari:n2v
+singularity pull "${SIFDIR}/devbio-napari_n2v.sif" "${container_registry}"
+# check if image file is readable
+[ -r "${SIFDIR}/devbio-napari_n2v.sif" ] && echo "failed to pull singularity image from registry to $SIFDIR" && exit 1
 
 WSDIR=$(dirname "$(pwd)")
 
