@@ -16,7 +16,7 @@ Workflow for Fileserver to HPC that applies [Noise2Void](https://github.com/jugl
 6. After ~ 1 min, the zip file should disappear. This means that the processing on the cluster has started.
 7. Some time later, a folder called `denoised`, containing your denoised data, will appear. For example:`//fileserver/process_on_hpc/my_data/workflow.zip`
 
-   The time may range from minutes to many hours, depending on hob busy the cluster is, whether or not you need to train a new n2v model, and the total amount of data to be denoised.
+   The time may range from minutes to many hours, depending on whether or not you need to train a new n2v model, the total amount of data to be denoised and how busy the cluster is.
 8. If you want the same data to be processed again, (e.g. if you want to train longer):
    * delete the files you want to be processed again from the `denoised` folder
    * if you want to re-train, delete the `model` folder (and increase the number of epochs in `config.json`)
