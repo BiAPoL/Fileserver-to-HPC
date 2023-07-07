@@ -1,4 +1,4 @@
-# Noise to Void Workflow
+# Noise 2 Void Workflow
 
 Workflow for Fileserver to HPC that applies [Noise2Void](https://github.com/juglab/n2v) to your data.
 
