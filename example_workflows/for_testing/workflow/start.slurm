@@ -2,6 +2,8 @@
 #SBATCH --job-name=start_test
 #SBATCH --partition=romeo
 
+date
+
 echo "working directory: $(pwd)"
 
 mkdir ../results

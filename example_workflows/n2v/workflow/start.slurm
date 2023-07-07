@@ -11,6 +11,8 @@
 # module purge
 # module load <module name>
 
+date
+
 # Allocate workspace for singularity images
 SIFDIR=$(ws_allocate -F beegfs -n "singularity" -d 30)
 export SIFDIR

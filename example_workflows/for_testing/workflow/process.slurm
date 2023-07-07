@@ -2,6 +2,8 @@
 #SBATCH --job-name=process_test
 #SBATCH --partition=romeo
 
+date
+
 echo "processing $1"
 filename=$(basename "$1")
 dir=$(dirname "$1")
