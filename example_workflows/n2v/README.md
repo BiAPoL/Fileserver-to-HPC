@@ -26,6 +26,8 @@ Workflow for Fileserver to HPC that applies [Noise2Void](https://github.com/jugl
 
 If something is not working, try to look through the log files in the `log` folder. For example `//fileserver/process_on_hpc/my_data/log`. The most common issue are out of memory errors, which may be fixed by reducing the size of individual files. For example by splitting into separate files for each time point or by tiling your images.
 
+If that does not help, please do not hesitate to [open a new issue](https://github.com/BiAPoL/Fileserver-to-HPC/issues/new?&template=bug_report.md), detailing the path to your data on the fileserver, what actually happened and what you expected to happen.
+
 ## Configuration
 
 the `config.json` file is read as a dictionary and passed to N2VConfig as arguments, so all the configuration arguments for N2VConfig are valid. If a variable is left out, the n2v default value is used, with some small exceptions:
