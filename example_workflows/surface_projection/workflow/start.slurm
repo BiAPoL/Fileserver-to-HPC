@@ -2,7 +2,11 @@
 #SBATCH --job-name="surface-projection"
 #SBATCH --partition=romeo
 
-src_dir=$(dirname "$0")
+if [ -e "$TARGET_DIR/workflow/after/extract_surfaces.slurm" ]; then
+    src_dir=$TARGET_DIR/workflow/after
+else
+    src_dir=$TARGET_DIR/workflow
+fi
 
 echo "src_dir: $src_dir"
 echo "TARGET_DIR: $TARGET_DIR"
@@ -28,5 +32,5 @@ if [ -n "$dependencies" ]; then
     dependencies=${dependencies#,}
 
     echo "update cleanup job dependencies to $dependencies"
-    scontrol update job="$CLEANUP_JOB_ID" --dependency="afterany:${dependencies}"
+    scontrol update job="$CLEANUP_JOB_ID" --dependency=afterany:"${dependencies}"
 fi
