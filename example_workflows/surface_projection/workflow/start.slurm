@@ -14,13 +14,13 @@ echo "TARGET_DIR: $TARGET_DIR"
 CLEANUP_JOB_ID=$(sbatch --parsable -o "${TARGET_DIR}/log/cleanup_projection.out" --dependency=afterany:"$SLURM_JOB_ID" --export=ALL "$src_dir"/cleanup.slurm)
 
 # shellcheck source=projection_config.sh
-source ../projection_config.sh
+source "$src_dir/projection_config.sh"
 
 dependencies=""
 while IFS= read -r -d '' file; do
     file_name=$( basename "$file" )
     if [ -e "${TARGET_DIR}/projected/${file_name%.tif}_projection0.tif" ]; then
-        echo "Output already exists. Skipping $file_name"
+        echo "Output ${TARGET_DIR}/projected/${file_name%.tif}_projection0.tif already exists. Skipping $file_name"
     else
         echo "submitting surface-projection job for $file_name"
         job_id=$(sbatch --parsable -o "$TARGET_DIR/log/extract_surfaces-$file_name.out" "$src_dir/extract_surfaces.slurm" "$file")

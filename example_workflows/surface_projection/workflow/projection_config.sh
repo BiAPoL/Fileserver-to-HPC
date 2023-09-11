@@ -1,6 +1,4 @@
 #!/bin/bash
-export src_dir="$HOME"/workspace/project-surfaces/src/
-
 export downsample_factor_xy=0.04
 export downsample_factor_z=1
 export max_dz=14
