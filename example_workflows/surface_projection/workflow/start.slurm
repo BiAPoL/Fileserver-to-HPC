@@ -4,6 +4,9 @@
 
 src_dir=$(dirname "$0")
 
+echo "src_dir: $src_dir"
+echo "TARGET_DIR: $TARGET_DIR"
+
 CLEANUP_JOB_ID=$(sbatch --parsable -o "${TARGET_DIR}/log/cleanup_projection.out" --dependency=afterany:"$SLURM_JOB_ID" --export=ALL "$src_dir"/cleanup.slurm)
 
 # shellcheck source=projection_config.sh
@@ -16,7 +19,7 @@ while IFS= read -r -d '' file; do
         echo "Output already exists. Skipping $file_name"
     else
         echo "submitting surface-projection job for $file_name"
-        job_id=$(sbatch --parsable -o "$TARGET_DIR/logs/extract_surfaces-$file_name.out" "$src_dir/extract_surfaces.sh" "$file")
+        job_id=$(sbatch --parsable -o "$TARGET_DIR/log/extract_surfaces-$file_name.out" "$src_dir/extract_surfaces.slurm" "$file")
         dependencies="$dependencies,$job_id"
     fi
 done < <(find "${TARGET_DIR}"/denoised/ -name "*.tif" -print0)
