@@ -1,0 +1,639 @@
+16/08/17
+-updated the TA launcher so that it checks compatibility with batik and guides the user otherwise
+
+09/08/17
+-fixed several polarity visualisation issues in preview
+-fixed obsolete coarse graining (only for nematic so far)
+-fixed new coarse grain for nematic (still issues with vectors and rescaling factor)
+
+02/08/17
+-fixed a bug that completely prevented SQL advanced plotter to work properly (in absence of global scaling, introduced 4 months ago, I guess nobody is using this tool otherwise people should have reported that ages ago, that's sad because this tool is super powerful!)
+-fixed a bug that prevented polarity to be displayed when names contained several internal '.' (e.g.several nested extensions)
+
+19/04/17
+-fixed a mask color issue (mask color was reverting every time the image was changed)
+
+07/04/17
+-fixed erroneous color for local bond id on export to IJ (bug introduced recently while improving contact extraction and vectorization)
+
+05/04/17
+-Added support for global color coding instead of local image only in the advanced SQL plotter (new keywords: GLOBAL_MAX, GLOBAL_MIN will get the maw and min values of all databases), it was quite hard to do so please report bugs !
+
+26/03/17
+-(re)added support for tracking vertices (user request), vertices of engulfed cells are not supported (an error message is returned)
+
+17/03/17
+-TA now selects the default system lnf if none is defined instead of using the first lnf of the list (this happened when the 'TA parameters' button was pressed)
+-next and previous tips implemented in case someone is interested enough to see them all
+
+16/03/17
+-fixed a bug recently added that prevented the user from runing the watershed locally
+-fixed glasspane being enabled by default at startup
+
+10/03/17
+-started adding a few tips
+-improved shortcuts a bit
+
+09/03/17
+-dramatically increased drawing speed, especially for gigantic images (It was getting slow due to direct rendering onto the mask image instead of rendering line objects directly to the panel graphics)
+-cleaned imagePanel a lot
+-changed to version 2.3 beta 1, since I may have broken things with this huge change (so please report bugs)
+
+08/03/17
+-may have fixed a potential yosemite bug occuring upon DND of images
+
+03/03/17
+-fixed a shortcut bug (shortcuts other than letters were not allowed, which was dumb)
+
+24/02/17
+-added the possibility to hide or show original background image (new default shortcut added : 'L')(user request)
+-added the possibility to rerun the watershed locally in an erased area (new default shortcut added : 'K')(user request) 
+
+04/02/17
+-changed the way IJ macros were sent to IJ by TA, it should make TA handling of IJ macro much more reliable and flexible than it was
+
+31/01/17
+-added the possibility to edit keyboard shortcuts
+-shortcuts are saved in the software preferences and reloaded automatically, that was not so easy to do so please report bugs!
+-added the possibility to reset shortcuts
+-improved handling of licences
+-updated website
+
+30/01/17
+-made the TA scrollpane respond o keyboard arrow keys (most likely a java UI behavioural change) 
+-rolled back the change above and made the image list respond to keyboard, maybe I'll find another solution or an oprion as I liked the moving with the arrows on the image
+
+11/01/17
+-several internal code improvments (should not impact the user)
+-added the "M" key shortcut that shows/hides the mask when pressed --> is the optimal replacement for the zoom panel that is gone and works just great
+
+05/01/17
+-happy new year
+-improved watershed mask quality (Option "fix mask px outliers" in the "finish all"), please report bugs if you notice any
+-changed a bit the behaviour of the "below the mask" viewer (press P to remove  the mask and P again to bring it back immediately, therefore I increased the time)
+-few internal code changes (new additions, so no chance that I broke anything that was not already broken before)
+
+28-29/11/16
+-minor UI fixes (may have been having serious impatc on software speed/multi-threading issues)
+-minor bug fix to handle images of different sizes (still not yet recommended to do that)
+-found a bug with super long path for the sqlite DB (but no clue how to fix this, except from moving the parent folder)
+
+15-19/10/16
+-major batik related changes
+-added the possibility to preprocess images using IJ before segmentation in TA
+-reactivated error logger (my bad, it should never have been inactivated)
+-bug fix for preprocess of 16 bits images
+
+14/10/16
+-restricted preview of DB to the 10 first lines
+-fixed batik issues in FIJI (switched to the latest batik library 1.8 non uber jar)
+
+12/10/16
+-updated batik (to 1.8) and xml-apis-ext libraries to restore SVG compatibility with the latest FIJI
+
+06/10/16
+-fixed a drawing error (depending on the zoom, the green cursor was not being erased properly, it was very obvious on super tiny images)
+-fixed bug in tracking when images had different height and length
+-changed the tracking algorithm (it is super powerful at reassigning cells but it can reassign also far away cells that are coming from segmentation errors so it is very highly recommended to use the displacement exclusion criterion in the tracking
+-slightly changed the displacement/alignment code
+
+07/07/16
+-cleaned TA source code a bit (just text, functions have not been changed at all though), removed unused classes
+
+29/06/16
+-yet another bug fix for clone to ROI conversion
+
+17/06/16
+-fixed a bug preventing conversion of clones touching the image margin to ROI
+
+16/06/16
+-increased clone roughness max size to 50000 instead of 5000, because it was causing a bug when huge clones were analyzed
+-fixed an annoying (seriously slowing down the software) bug causing too many java layout graphics refresh (just some stupid internal component was changing size making the parent jpanel to change its size, leading to a full window refresh, window jiggling bug is now finally fixed)
+-fixed a bug preventing conversion of mask to ROI when mask were touching the boundary
+-removed the "zoom" panel because now that I added mask transparency it became unnecessary and slows down drawing a lot (especially for low spec macs)
+-changed soft layout to give more room to the segmentation window
+-changed version to 2.1 because of the layout change
+
+13/06/16
+-made it impossible to select pure black and pure white when changing mask color (those are reserved system colors)
+
+12/05/16
+-may have fixed a serious list loading issue (but maybe not)
+
+04/05/16
+-fixed a bug that prevented polarity from being displayed
+
+02/05/16
+-added support for vector graphics output in the "advanced SQL plotter"
+
+28/04/16
+-added best fit button that alternates between best fit in width or height
+-fixed a bug in "autocenter based on 2D correlations" when running it when no folder was associated to the image
+
+26/04/16
+-fixed inversion of arrowhead height and width in PLOT AS ARROWS/VECTORS (even though it would have been ok also otherwise)
+-'advanced SQL plotter' now automatically ignores null or erroneous/text values in PLOT AS CELLS
+-improved manual setting of colors in the advanced SQL plotter
+
+25/04/16
+-fixed a bug when running the seeded watershed. The bug occured when cells were both removed and seeded in the same image and only when changes were not applied after cell removal. Everything should work now.
+-added support for stretch dynamic rescaling of the nematic in viewer
+-greatly improved the 'advanced SQL plotter' (added LINES, NEMATICS, ARROWS and VECTORS support). Nematics and vectors require a central point and a rescaling factor. Lines and arrows require the user to specify the coordinates of the first and last point.
+
+22/04/16
+-fixed an error in the 'advanced sql plotter' when user provides coordinates outside the image
+
+19/04/16
+-improved the erosion of lines (now removes extremities/pixels instead of scaling the line which did not make much sense for biology)
+
+18/04/16
+-fixed a bug when adding ROIs to the database (Y coordinates were the same as X coordinates)
+-I've added guidelines for running TA on old FIJIs (that ship with a buggy JDK missing some of the oracle java 6 functionalities, preventing TA to run)
+-minor optimization in the TA display (might be a little bit faster)
+-added support for ROI erosion or dilatation prior to IJ export (can be used to exclude vertices from bonds or to measure cytoplasm far away from the membrane)(maybe erosion of bonds need to be recoded to remove pixels on both sides rather than using a scaling)--> let see if I get criticism from users
+
+15/04/16
+-cleaned the 'viewer' tab
+-fixed a bug in polygons plotting (when there are erroneous polygons happpens for the weird bounding cells surrounding the real tissue (e.g. black region around the wing)
+-fixed a bug in macro/parameters reloading (some fields and buttons that should have been ignored weren't)
+-fixed a bug in DILATATION in the 'advanced SQL plotter'
+
+14/04/16
+-fixed two minor glasspane bugs
+-fixed a bug in the 'advanced SQL plotter' and added a plot as dots/pixels/point function
+
+11-13/04/16
+-improved TA to IJ ROI conversion for bonds, cells and clones (upon drawing over the image only tracks or bonds touching the drawing will be selected), this should allow TA to use the full power of IJ!
+-added support for IJ "Results" import into the TA db
+-added a tool to convert TA clone to IJ ROI set
+-removed TA IJ sync cause it was a bit hard to use and the new version is simpler to use I think
+
+10/04/16
+-likely fixed several memory leaks in the TA database
+-added several tutorials (still work in progress and tutorials are not finalized)
+-fixed a bug linked to image size in tutorials
+-removed a few useless functions of TA
+-likely fixed several memory leaks throuhout TA
+
+08/04/16
+-made tools to clean tutorial extra text and to restore object font size
+-this modification makes it possible to load several tutorial without having to restart the software which was rather painful
+-addition of the 'advanced SQL plotter' and of the dynamic tutorial functionalities greatly improve TA and justifies a major version change, TA is V2.0
+
+06-07/04/16
+-added support for easy and live generation of tutorials (so far no tutorial is embedded, but I'll add some tutorials soon)
+-tutorials can be dropped directly over the software
+-tutorials can run over several windows and therefore users will always get help whenever they need it
+-fixed several tutorial bugs (e.g. allow duplicate commands and prevent duplicate labelling of buttons with a single tutorial)
+
+05/04/16
+-improved the advanced SQL plotter (does not need to track cells and bonds anymore to do CELLS/BONDS plots)
+-made the imagePlus always on top so that it should always be visible on mac/PC and linux
+-added a tool to plot cells as polygons
+-various minor improvements and bug fixes for the advanced SQL plotter
+-designed a tool to easily create tutorials (tool is not yet final but looks promising)
+-added import and export for advanced SQL commands
+
+27-30/03/16 
+-updated the advanced SQL plotter (it must now be largely functional, I have added support for LUT, dilatation and opacity with exclusion of colors)    
+-added custom importation of data in the TA database from FIJI quantifications
+-added suport for direct movie exportation instead of saving images
+-improved image preview
+-designed a tool to synchronize TA and FIJI/IJ
+
+21/03/16
+-fixed a 16 bits error in image compositer (that made 16bits images appear blueish when used as bg images)
+-added the first version 0.1 of the TA "advanced SQL plotter" that should allow anybody with knowledge of SQL to virtually plot anything they like, in no time using the high potential of the plotting capacities of TA
+
+08/03/16
+-fixed a bug in tracking entering cells were reassigned the leaving cell id (the max displacement parameter allowed was only partially taken into account)
+
+12/01/16
+-fixed a bug that prevented IJ/FIJI from opening images (many thanks to G. Kale for reporting and identifying the bug).
+
+06/01/16
+-further improved the new segmentation algorithm, it does even less errors than the pervious versions. Segmentation is close to perfection, I therefore (forever) stop development of the segmentation algorithm and will focus on other problematic software features.
+
+05/01/16
+-I have optimized the new segmentation algorithm, and it works even better. The improvment is so important (in my mind) that this justifies a major version change: TA is now in v1.5 beta
+-since segmentation is a slow process I have added an autoclosing dialog that remains open as long as segmentation is taking place
+
+04/01/16
+-Drastically improved algorithm and quality of initial segmentation (up to 10 times less errors than previously, but it depends on the original image). Once finalized the new segmentation will be filed online.
+
+27/11/15
+-fixed a bug leading to loss of cell contacts in very rare cases (when a cell was englobing all other cells of the image)
+
+19/11/15
+-fixed a bug for files affecting files with a several dots (.) in their name/path
+
+17/11/15
+-added support for ctrl+click to act as right click for mac users (hope this won't break anything)
+
+20/08/15
+-fixed a big cell tracking error introduced during the conversion from packing analyzer to tissue analyser (many thanks to N. Dye and R. Etournay for reporting the bug)
+
+12/01/15
+-created an external launcher for TA required to build a FIJI update site for Tissue Analyzer
+-FIJI update site address is http://sites.imagej.net/TA/
+
+07/08/14
+-renamed a few buttons
+-move TA parameters from Misc to the lateral toolbar
+
+06/08/14
+-updated and improved the launcher
+
+04/08/14
+-restored/improved loggers
+
+23/07/14
+-added partial support for 96bits RGB images (please report bugs/32 bits measurement errors)
+
+03/07/14
+-Ctrl + S should now be Apple/Command + S on mac OS X (not tested yet)
+
+01/07/14
+-added a tool to detect and plot rosettes (series of connected bonds all below a certain size)
+
+25/06/14
+-added a tool to measure cytoplasmic polarity vector and nematic order
+
+16/05/14
+-increased speed of pixel recovery for 48bits images (better implementation but will require more resources)
+
+06/05/14
+-improved support for 48bits images
+-fixing functions using channels to handle 48bits images when possible
+
+05/05/14
+-adding support for 48bits images
+-support for 48bits images required a rename of database column names (*red --> *ch1, *green --> *ch2, *blue --> *ch3)
+-fixed erroneous GUI parameters reloading
+-fixed several minor channel related bugs/inconsistencies
+
+28/04/14
+-removed a few obsolete buttons to simplify the soft
+
+25/04/14
+-reintroduced send to clipboard
+-fixed minor file name/file extension bugs
+
+16-17/04/14
+-added support for dynmaic strecth plot
+-added support for dynmaic plot of vector polarity (before it was showing nematic polarity instead)
+-fixed minor list bugs (when list was empty)
+-fixed drawing of the clone that was not refreshing
+
+01-02/04/14
+-fixed out of memory error when using "--> IJ stack" in the viewer tab 
+-added a code to filter out T1 transitions that go back and forth (that are most often caused by segmentation errors when bonds are small)
+-TA youtube channel is down --> move it to the TA specific channel (mark as private)
+
+19/02/14
+-fixed a minor recentering error that prevented tracking to complete properly in some cases
+
+28/10/13
+-added a button: "tracking>Convert cell tracks to IJ ROIs" that allows the user to export tracked cells as ROIs in imageJ (the cell id is saved in the name and the slice number as well). These ROIs can be used in combination with the "measure" function of imageJ.
+
+03/10/13
+-fixed the remaining bug in the watershed segementation (the bug only affected seeded watershed)
+-finalized a tool to create bond kymographs
+-fixed several bugs in the tracking code
+-finalized a tool to reseed a mask using existing seeds
+
+16/08/13
+-added a tool to seed the watershed using a mask (Segmentation>Watershed using mask as seeds)
+-added support for clones in 'plots>ExportCellData' and 'plots>Export bond data'
+-added plots for any csv command
+-added a tool to export any SQL command as a csv file 'plots>ExportSQLCommand'
+-updated launcher.jar to handle 'tissue_analyzer.jar'
+
+14/08/13
+-removed obsolete functions
+-removed the 'single' selection mode (redundant with 'multi' when only one image is selected)
+-restored plot cells and plot bonds (plots are now based on the database). In addition it is now possible to decide which columns should be exported and which not and in which order they should be exported
+
+13/08/13
+-updated the SQL editor (simplified it and allowed it to deal with the splitted DB)
+-added a tool to execute javascripts
+-added a function to recover list from java script
+-fixed major text (re)loading error in dialogs (text was converted to lower case, causing trouble in some cases)
+-fixed pointer mispositioning when drift correction was applied (also fixed erroneous mouse coordinates)
+
+12/08/13
+-improved the tools to measure cytoplasmic and bond intensity SQLite DB>Measure bond and cytoplasmic inyensity
+-removed several obsolete classes and dialogs
+-inactivated buggy translations when the image contains vectorial objects
+-removed all the jFileChooser in TA and replaced them by the common file chooser
+
+09/08/13
+-disabled always on top in the "Vector Graphics Tools" frame to prevent it from hiding the colorchooser
+-cleaned and simplified database tools
+-removed obsolete buttons
+-I now set PRAGMA synchronous = OFF (0) by default for my databases (it increases speed of creation of tables by about 10 to 20 times, impressive, but db may get corrupted if the computer crashes, but no big deal as it can be recreated easily by TA)
+
+08/08/13
+-removed several useless buttons
+-moved a few buttons to more appropriate locations
+-improved Mask>remove small objects (added a preview)
+-fixed error with loading of clones in TA
+-fixed several major bugs associated to plugins
+-removed obsolete code associated to old plugins
+-made some minor changes to the layout
+-fixed minor db bugs
+-improved and fixed bugs in the "autodetect clone" function
+-partially fixed Virtual Cloning>detect next row
+-added a few demo videos
+
+07/08/13
+-started to associate buttons to their associated video (the goal is to have one video demo per button)
+-centralised execution of several buttons in TA
+-added a tool to manually align images (recenter>Correct alignment)
+-updated and added a preview for the tool to create a mask (mask>Detect objects (binarise + fill holes)) 
+
+06/08/13
+-fixed severe mispositioning of the drawing cursor on all systems
+-fixed image preview using the system viewer when the image is drawn dynamically
+-fixed glasspane not showing when image is dynamically drawn
+-improved a bit the display of buttons in viewer
+-created video demos for several buttons
+
+05/08/13
+-changed the size of TA so that it can be used even on a very tiny screen (1024x768 px)
+-the local watershed can now be executed on several independent cells at the same time (the only requirement is that each of these not-correctly-segmented supercells contains at least two seeds otherwise the cell will simply be ignored).
+
+02/08/13
+-files that are not physically produced anymore by TA can be generated on the fly in the viewer, the color coder or the image compositer (and can also be sent to ImageJ)
+
+01/08/13
+-removed deprecated raster masks and the code using it (obsolete since the development of ROIs)
+-the database is better integrated into TA, whenever an action is performed the db should be updated in parallel. The aim is to keep images and the db always coupled, it may fail, especially if the user cancels a running thread for example, not much I can do to prevent that unfortunately
+-removed several obsolete buttons
+-removed the possibility to read csv and txt files from within PA (obsolete since the integration of the DB)
+
+31/07/13
+-added back the possibility to create a master database containing all the dbs from all frames (made use of the attach and detach functions of sqlite for that)
+-added vector polarity measurements to the database
+
+29-30/07/13
+-mask_recentered and tracked_cells are now obsolete files, the translation is at present dynamically calculated and applied only when really necessary
+-recentering informations are now coded in the db and translations are calculated on the fly
+-recoded the "finish all" so that it generates a DB file containing cells and bond infos per image
+-replaced all calls to "border_cells" images by direct calls to the DB
+-fixed several bugs associated to the DB
+-fixed viewer2 that got broken during the transition from PA to TA
+-removed calls to boundary_plotter2.tif
+-modified the DB plotter for it to handle the fact that the TA database is not unique anymore
+-removed several obsolete buttons
+
+26/07/13
+-recoded the ROI based watershed so that it is now compatible with biblur and bassin merging, it also works very nicely now (more powerful than the mask based watershed)
+-removed several other useless buttons from the segmentation tab
+-I now allow display refresh when watershed is run
+-fixed a minor channel related bug in "Remove false bonds"
+-cleaned all the tabs (removed useless buttons + improved tab layout)
+-created a new frame that will be specifically in charge of detecting and fixing cell tracking errors, most buttons of the tracking panel are being moved there
+-converted all the cortex tools into a cortex plugin
+-removed plugins that are not in use anymore
+
+25/07/13
+-fixed ans simplified reload the clone in TA
+-updated the biblur
+-improved DB individualization
+-started removing useless image files (obsolete because of the database)
+-the software now selects the "Segmentation" tab by default at launch (tabs before that include non necessary masking and manual segmentation tools --> should only be used by experts)
+-removed and regrouped buttons in the segmentation panel
+-added new functionalities to the "detect bonds" dialog (i.e. bassin merging, small cell removal and single or bi-blur), results are quite impressive as long as fusion parameters are not crazy
+-I have recoded the watershed in the mask only, it now works like a charm and made it so that it can make use of bassin fusion and biblur
+
+24/07/13
+-I thought carefully about the DB and I am now totally convinced that having a common DB for all images analyzed in PA is a very bad idea, therefore each image will have its own DB in the folder that has the same name as the image. Having several DB is safer in cases where users don't always load the same images in the list (or load them in a different order), it is safer for multithreading, it is safer for data loss as not everything is lost if one DB gets corrupted. Having one DB per file also makes it possible to update the DB just for the few files that really need it. DB queries are also made simpler by having one DB per file. It also prevents DB conflicts when working with files in different folders, ... I'll still give the opportunity to create a master DB if the user needs one (I'll append file_name and frame nb to each table to avoid pbs in this merged DB). I have therefore individualized DBs.
+-fixed several layout bugs
+
+23/07/13
+-added a seed prev and a local seed prev function
+-improved seed prev/next and local seed prev/next (better gestion of channels)
+-scan area is now a free parameter in local seed next/prev
+
+18/07/13
+-I have slightly modified TA so that it can now be run as a FIJI/IJ plugin
+-fixed a few bugs related to the use of TA as a FIJI plugin
+-renamed a few files to prevent ImageJ proper to load them to the plugins menu (FIJI was not doing the same mistake)
+
+17/07/13
+-I now preserve the position of the scroll bars when another image of the list is selected (if applicable)
+-added the possibility to rename a file and its associated folder from within TA
+-fixed a bug that was removing the entire mask when the user was placing one of his seeds on the mask before pressing Ctrl+M
+
+16/07/13
+-fixed a bug that prevented proper plugin loading (still need to clean the code though)
+-polarity is now plotted dynamically from the db (image files are not read anymore), the advantage is the rescaling factor can be tested live and it is now possible to see polarity for each of the channels (for example to see if they differ)
+
+12/07/13
+-improved a bit the TA undo function
+-removed several useless/lengthy .doClick()
+-fixed a bug reported by a user that was significantly slowing down user drawings (especially visible for big images)
+
+11/07/13
+-added a local seeded watersheding function. The idea is that if a bond is missing between two adjacent cells, just click on the center of the two cells that share the undetected bond and then press ctrl+M --> the bond between the two cells will be recreated. Of note, it also works if you have five bonds missing between 5 adjacent cells, in that case just click on the center of the five adjacent cells and then press ctrl+M and the five missing bonds will be plotted.
+-added the possibility to grab and update just a small region of the mask --> may speed up things a bit
+
+09/07/13
+-added a tool 'Remove_false_bonds' to get rid of some of the oversegmentation
+
+03/06/2013
+-fixed image loading in TA (force retrocompatibility with previous versions of PA)
+-fixed drawing of clones/drawing of cell division and death
+
+31/05/2013-03/06/2013
+-added support for clone roughness
+
+28/05/2013
+-removed local seed next
+-replaced it by local seed next with bassin fusion
+-the enhanced watershed algorithm is now fully functional so I decided to replace the old watershed algorithm by the new one throughout the software
+
+27/05/2013
+-recoded the seeded version of the watershed
+-coded a watershed that can merge bassins
+-cleaned the watershed code
+
+15/03/2013
+-fixed a big bug in plugins that prevented them to be loaded
+
+14/03/2013
+-fixed a big bug in array sorting (that was not frequently occuring)
+
+28/08/2012
+-fixed a huge bug affecting cell tracking (many cells were lost). Many thanks to Raphael for reporting it.
+-fixed a bug in PA update (bug was on my system only but prevented main jar update on the server)
+
+25/07/2012
+-added the possibility to import a LUT from IJ to PA and to apply a palette from PA to an IJ image (panel Misc, button "Import/Apply_PA_LUT_to/from_IJ_image")
+
+20/07/2012
+-PA look n Feel (appearance) can now be changed, to do so go to the panel Misc and click on "PA Parameters". I recommend the nimbus L&F, as it is quite ok and cross platform.
+-fixed a bug in the plugins that prevented some buttons to appear even when the appropriate plugin was there
+
+27/06/2012
+-added partial support for FIJI (the path to FIJI should be specified in Misc>PA Parameters) and the FIJI library called fiji-compat.jar (in Fiji.app/jars should be copied to the lib folder of PA) if you do so you would have a fully functionnal FIJI in PA includind 3D Viewer (you can launch it with ctrl+J). Hopefully I will find a way to simplify this procedure in the future
+-prevented FIJI to close PA when closed.
+
+04/06/2012
+-fixed a bug in imageCompositer, the replacement of vectorization tools there prevented "ignore white" from fg image to function properly, this has been fixed
+
+02/06/2012
+-added a tool to add ROIs included in other ROIs to the database
+
+28/05/2012
+-coupled the partial max projection tool to the ROIs
+
+26/05/2012
+-added a what's new in TA window that shows up if there is something new in PA since last startup
+-centered log window, error window and what's new window on the center of PA main frame
+-added Zstack position in "quantify ROI" output
+
+24/05/2012
+-added support for viewing stacks (thanks to imageJ, see spinner in the bar at the bottom of PA)
+
+22/05/2012
+-fixed minor bugs in ROIs
+-settings for CPU usage (nb of cores PA should use) have been moved to the "PA PArameters" button in the Misc Panel
+-fixed several bugs in macro mode and allowed more feature to be saved by the macro mode
+-added plugins functionnality to PA, from now on things might be developed on a plugin basis (--> there will be a core PA that is stable and then there will be plugins developped for some specific applications/users) this will help keep PA simpler and will make it more powerful
+-added the possibility to dilate ROIs
+
+20/05/2012
+-fixed minor ROI bugs
+-added the possibility to erode ROIs
+-added a function to extract images from ImageJ
+-added a shortcut in the ROI panel to recolor a ROI using the last color used (Ctrl + R)
+
+19/05/2012
+-new entries in the db (they contain the sum pixel intensity of the cytoplasm)
+-new function to create a db that contains cytoplasmic intensity of a cell after dilatation of the watershed mask
+-updated the SQL editor to manipulate tables more easily (EXCEPT commands selects all the columns of a tables except the specified ones; NODUPE selcts all columns except columns that have the same name in the two tables specified)
+-added the possibility to export SQL table to a tab separated .csv file
+-added conversion from PA Roi Format ro IJ Roi Format and vice versa  
+-added import from imageJ result/measure window into PA db
+-added a tool to convert Cells/Bonds to ROI in order to be able to measure them using the imageJ measure tool  
+-added a shortuct for imageJ (Ctrl + J))
+-changed the behaviour of the quick list button it now saves depending on the radiobutton selected close to the list  
+-updated the list of PA shortcuts
+
+13/05/2012
+-fixed error in conversion of clones to ROI when the clone was touching the border of the image
+-fixed several minor ROI bugs
+-sorted list alphabetically in Viewer
+-added partial support for ROI in viewer
+
+12/05/2012
+-added full support for vector transformation of cells and bonds
+-added ROI quantifications
+-fixed several minor bugs in ROIs
+-added transparency support for ROIs
+-added verbose mode for ROIs
+-added check for SQLite Db integrity (compared to cell mask)
+-added a new viewer that is ROI based and can access the database to help users collect data more easily 
+
+30-02/04/2012
+-cleaned software
+-added controls for mask validity
+-added new updaters that are fairly efficient for tracks, masks, ...
+-fixed drawing issues, things are now drawn exactly at the center of the drawing area before there was a shift of a couple of pixels
+
+29-30/04/2012
+-added a tool to convert ROI to clone and vice versa
+-removed update/progress --> will create a new version of this
+-fixed the moore algorithm to sort pixels of a contour, it now really is an implementation a real implementation of the moore algo
+-added the possibility to replace entries in a sql database
+
+25/04/2012
+-added broken line ROI
+-added polygonROI
+-fixed couple of minor bugs in ROIs
+
+23/04/2012
+-finalized quantification of divisions in egg chambers
+
+18/04/2012
+-fixed remaining bugs in ROIs
+-added a tool to create tutorials for PA (in misc, button tutorial mode)
+
+16/04/2012
+-fixed bug of windows not showing at the appropriate position with respect to main window
+-added send to back and bring to front for ROIS
+-added the possibility to simplify the contour of polygons (useful when contains too many points)
+
+15/04/2012
+-finalized ROIs(added alignment, export to SVG, the possibility to create a montage out of images in the list that can be saved as SVG and edited in Illustrator or Inkscape or alike)
+-added support of grouping of ROIs
+-added the possibility to swap 2 ROIS/image ROIS
+-fixed a serialization bug
+-added Point ROI
+-added the possibility to edit ROIS
+ 
+13/04/2012
+-added full support for ROIs (ROI Panel)
+-hairs and Manually drawn divisions are deprecated --> replaced by ROIs (select the type of plot in the ROI Panel combobox)
+-added temporarily buttons to convert hairs and manually drawn divisions to ROI (but the buttons will be removed in a couple of months)
+
+11/04/2012
+-removed jiggling of image around the cursor while drawing
+-added partial support of ROIs
+
+08/04/2012
+-added a control to check that the user is not going to duplicate a track when he clicks on correct track
+
+01/04/2012
+-fixed a bug in the "finish all" function (outputed data was ok but the algorithm was slow because of an error in a pixel sorting algorithm)
+-added a SQLite database to PA
+-added a plot function that uses the SQLite db to create cells, vectors, nematics, ... plots
+-added a connection between R and PA to create graphs out using PA SQLite database
+
+11/03/2012
+-added an sqlite database to PA (last 3 buttons in plots)
+
+04/03/2012
+-cleaned up the saving of PA parameters
+
+01/03/2012
+-finalized the new macro mode (please report bugs)
+
+24/01/2012
+-added a function to find duplicated cells
+
+23/01/2012
+-I have partially multithreaded the "quantify cell divisions 2" tool and forced adjacent divisions with different ids to be treated separately
+-fixed a big bug in flow calculations
+
+17/01/2012
+-added a function to force cell divisions to have the same mask as cell tracks (I highly recommend not to use this function unless you know what you are doing)
+
+15/01/2012
+-fixed a bug in the "quantify cell division2" function, that was sometimes not detecting bonds coming from divisions properly.
+-slightly modified the definition of the velocity measurements
+
+12/01/2012
+-added a tool to color code cell division as a function of its stage prophase/metaphase/....
+
+09/01/2012
+-added txt output for flow fields/shear/vorticity and compression
+
+22/12/2011
+-changed layout to gain space to be able to put the channel selection tool in "Tools"
+-moved channel selection to "Tools" (first position) it will affect watershed, autocenter based on 2D correl, polarity,...
+-in order to gain space, I have moved List related commands such as sorting, ... to right click mouse button popup over the list
+-in order to gain space, I have moved the macros burron to the right of the list, the search button has been moved as well
+-fixed a bug in the color selection in "autocenter based on 2D correl" (Daiki) (may create bugs in other places, so please report bugs, if they occur)
+-added a button in Movies to create a movie out of the current list, the movie will be called list.avi
+-fixed a bug, that was slowing down the drawing
+-allow launching of the vectorial editor without having an image in the list
+
+21/12/2011
+-added an online updater
+
+19/12/2011
+-updated batik libraries (may cause problems)
+-removed all unnecessary libraries (may cause problems but unlikely)

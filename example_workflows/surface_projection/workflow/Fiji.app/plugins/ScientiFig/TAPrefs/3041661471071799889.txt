@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>last update Thu Jul 11 19:25:34 CEST 2019</comment>
+<entry key="JCheckBox&#9;FixOutlierPixels">true</entry>
+<entry key="JSpinner&#9;Cut_off&#9;Integer">2</entry>
+</properties>

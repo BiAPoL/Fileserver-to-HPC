@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>last update Wed Feb 28 12:30:37 CET 2018</comment>
+<entry key="JSpinner&#9;jSpinner5&#9;Integer">20</entry>
+<entry key="JSpinner&#9;jSpinner4&#9;Float">-0.01</entry>
+<entry key="JSpinner&#9;jSpinner2&#9;Integer">32</entry>
+<entry key="JSpinner&#9;jSpinner1&#9;Integer">0</entry>
+<entry key="JSpinner&#9;jSpinner3&#9;Double">0.19999999999999998</entry>
+</properties>

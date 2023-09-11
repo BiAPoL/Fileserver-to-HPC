@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>last update Thu Feb 14 16:02:37 CET 2019</comment>
+<entry key="JCheckBox&#9;preprocess">false</entry>
+<entry key="JSpinner&#9;strong_blur&#9;Double">5.0</entry>
+<entry key="JCheckBox&#9;biblurCheck">true</entry>
+<entry key="JSpinner&#9;rmSmallCellSpin&#9;Integer">10</entry>
+<entry key="JCheckBox&#9;mergeBassinCheck">false</entry>
+<entry key="JCheckBox&#9;rmSmallCellCheck">false</entry>
+<entry key="JSpinner&#9;mergeBassinSpin&#9;Double">0.15</entry>
+<entry key="JSpinner&#9;weak_blur&#9;Double">1.7</entry>
+</properties>

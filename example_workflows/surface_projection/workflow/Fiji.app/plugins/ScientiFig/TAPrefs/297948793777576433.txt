@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>last update Mon Jun 18 14:07:35 CEST 2018</comment>
+<entry key="JCheckBox&#9;jchk1">false</entry>
+<entry key="JComboBox&#9;combo1">handCorrection.tif</entry>
+</properties>

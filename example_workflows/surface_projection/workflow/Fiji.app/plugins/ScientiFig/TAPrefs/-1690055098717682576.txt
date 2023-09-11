@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>last update Sat Jul 06 17:28:50 CEST 2019</comment>
+<entry key="JSpinner&#9;kuwahara_spinner&#9;Integer">5</entry>
+<entry key="JCheckBox&#9;mergeBassinCheck">true</entry>
+<entry key="JSpinner&#9;rmSmallCellSpin&#9;Integer">10</entry>
+<entry key="JSpinner&#9;max_spinner&#9;Integer">3</entry>
+<entry key="JSpinner&#9;weak_blur&#9;Double">0.6</entry>
+<entry key="JCheckBox&#9;max_checkbox">false</entry>
+<entry key="JCheckBox&#9;rmSmallCellCheck">true</entry>
+<entry key="JCheckBox&#9;kuwa_checkbox">false</entry>
+<entry key="JCheckBox&#9;preprocess">false</entry>
+<entry key="JSpinner&#9;mergeBassinSpin&#9;Double">0.3</entry>
+<entry key="JCheckBox&#9;noisyCheckbox">false</entry>
+<entry key="JSpinner&#9;strong_blur&#9;Double">1.6</entry>
+<entry key="JCheckBox&#9;finalizeMask">true</entry>
+</properties>
