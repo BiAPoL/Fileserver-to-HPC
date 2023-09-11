@@ -14,7 +14,13 @@ out_dir=$data_dir/projected
 mkdir -p "$out_dir"
 
 # shellcheck source=projection_config.sh
-source "$data_dir"/projection_config.sh
+if [ -r "$TARGET_DIR/workflow/after/extract_surfaces.slurm" ]; then
+    src_dir=$TARGET_DIR/workflow/after
+else
+    src_dir=$TARGET_DIR/workflow
+fi
+
+source "$src_dir"/projection_config.sh
 
  
 
