@@ -3,7 +3,7 @@
 #SBATCH --job-name="n2v"
 #SBATCH --time=08:00:00
 #SBATCH --partition=alpha
-#SBATCH --cpus-per-task=6
+#SBATCH --cpus-per-task=12
 #SBATCH --gres=gpu:1
 #SBATCH --mem-per-cpu=10312M
 
