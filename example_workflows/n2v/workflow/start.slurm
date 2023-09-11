@@ -34,7 +34,7 @@ src_dir=$WSDIR/workflow
 if [ -e "$src_dir/after/start.slurm" ]; then
     echo "running postprocessing scripts..."
     export data_path=$WSDIR
-    CLEANUP_JOB_ID=$(sbatch --parsable -o "$WSDIR/log/after_n2v.log" --dependency=afterany:"$SLURM_JOB_ID" --export=ALL "$src_dir/after/start.slurm")
+    CLEANUP_JOB_ID=$(sbatch --parsable -o "$WSDIR/log/after_n2v.out" --dependency=afterany:"$SLURM_JOB_ID" --export=ALL "$src_dir/after/start.slurm")
 else
     CLEANUP_JOB_ID=$(sbatch --parsable -o "${WSDIR}/log/cleanup_n2v.out" --dependency=afterany:"$SLURM_JOB_ID" --export=ALL "$src_dir"/n2v_cleanup.slurm "$WSDIR")
 fi
