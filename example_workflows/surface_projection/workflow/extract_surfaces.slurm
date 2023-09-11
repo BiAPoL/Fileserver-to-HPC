@@ -13,6 +13,9 @@ data_dir=$( dirname "$denoised" )
 out_dir=$data_dir/projected
 mkdir -p "$out_dir"
 
+echo "file: $file"
+echo "out_dir: $out_dir"
+
 # shellcheck source=projection_config.sh
 if [ -r "$TARGET_DIR/workflow/after/extract_surfaces.slurm" ]; then
     src_dir=$TARGET_DIR/workflow/after
