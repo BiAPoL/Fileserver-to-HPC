@@ -24,7 +24,7 @@ echo "Workspace for singularity images: ${SIFDIR}"
 container_registry=oras://gitlab.mn.tu-dresden.de:8000/bia-pol/singularity-devbio-napari:n2v
 singularity pull "${SIFDIR}/devbio-napari_n2v.sif" "${container_registry}"
 # check if image file is readable
-[ -r "${SIFDIR}/devbio-napari_n2v.sif" ] && echo "failed to pull singularity image from registry to $SIFDIR" && exit 1
+[ -r "${SIFDIR}/devbio-napari_n2v.sif" ] || (echo "failed to pull singularity image from registry to $SIFDIR" && exit 1)
 
 WSDIR=$(dirname "$(pwd)")
 
