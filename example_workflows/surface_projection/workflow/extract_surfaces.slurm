@@ -16,13 +16,13 @@ mkdir -p "$out_dir"
 echo "file: $file"
 echo "out_dir: $out_dir"
 
-# shellcheck source=projection_config.sh
 if [ -r "$TARGET_DIR/workflow/after/extract_surfaces.slurm" ]; then
     src_dir=$TARGET_DIR/workflow/after
 else
     src_dir=$TARGET_DIR/workflow
 fi
 
+# shellcheck source=projection_config.sh
 source "$src_dir"/projection_config.sh
 
  
