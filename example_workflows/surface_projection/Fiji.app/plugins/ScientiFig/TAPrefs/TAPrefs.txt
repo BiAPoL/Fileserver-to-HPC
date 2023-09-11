@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>last update Thu Jul 11 19:27:38 CEST 2019</comment>
+<entry key="JSpinner&#9;small_cell_remover&#9;Integer">11</entry>
+<entry key="JSpinner&#9;penSize&#9;Integer">3</entry>
+<entry key="LNF"/>
+<entry key="JSpinner&#9;gpOpacity&#9;Float">0.3</entry>
+<entry key="JComboBox&#9;channel_selector">RGB/gray</entry>
+<entry key="JSpinner&#9;cloneNb&#9;Integer">1</entry>
+<entry key="shortcut:0,47">Show/hide mask</entry>
+<entry key="JCheckBox&#9;correctForDrift">false</entry>
+<entry key="JCheckBox&#9;base_of_line">true</entry>
+<entry key="CtrlM">1.4</entry>
+</properties>

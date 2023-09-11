@@ -1,0 +1,5 @@
+pupal_wing_veinsonly,L2,L3,L4,postCV,L5
+Wing_BladeOnly,blade
+WingDiscBladeandFolds,blade,Fold1to2,Fold2to3,DV,AP
+wingdisc_bladeAndcompartments,blade,notum,Ant,Post,Dors,Ventr,AP,DV
+wingblade_and_boundaries,blade,AP,DV

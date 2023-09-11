@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>last update Thu Jul 11 19:25:39 CEST 2019</comment>
+<entry key="JSpinner&#9;jSpinner10&#9;Integer">1</entry>
+<entry key="JSpinner&#9;jSpinner9&#9;Integer">7</entry>
+<entry key="JRadioButton&#9;jRadioButton2">true</entry>
+<entry key="JSpinner&#9;jSpinner2&#9;Double">35.0</entry>
+<entry key="JRadioButton&#9;jRadioButton1">false</entry>
+<entry key="JSpinner&#9;jSpinner7&#9;Integer">256</entry>
+<entry key="JCheckBox&#9;jCheckBox3">true</entry>
+<entry key="JCheckBox&#9;jCheckBox1">false</entry>
+<entry key="JComboBox&#9;jComboBox2">ch3</entry>
+<entry key="JSpinner&#9;jSpinner1&#9;Double">280.0</entry>
+<entry key="JSpinner&#9;jSpinner8&#9;Integer">7</entry>
+<entry key="JSpinner&#9;jSpinner3&#9;Integer">25</entry>
+</properties>
