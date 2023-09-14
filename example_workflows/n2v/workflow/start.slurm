@@ -51,4 +51,4 @@ if [ -e "$src_dir/before/" ]; then
     find "$1/before/" -name "*.sh" -exec {} \;
 fi
 
-srun singularity exec -C --env "SINGULARITY_FILE_DIR=$SINGULARITY_FILE_DIR,CLEANUP_JOB_ID=$CLEANUP_JOB_ID" --writable-tmpfs --nv --pwd "$1" -B "$HOME/.ssh:/.ssh" -B "/etc/OpenCL" -B "$WORKSPACE_DIR" "${SINGULARITY_FILE_DIR}"/devbio-napari_n2v.sif python "$src_dir"/auto_n2v.py "$WORKSPACE_DIR"
+srun singularity exec -C --env "SINGULARITY_FILE_DIR=$SINGULARITY_FILE_DIR,CLEANUP_JOB_ID=$CLEANUP_JOB_ID" --writable-tmpfs --pwd "$1" -B "$HOME/.ssh:/.ssh" -B "$WORKSPACE_DIR" "${SINGULARITY_FILE_DIR}"/devbio-napari_n2v.sif python "$src_dir"/auto_n2v.py "$WORKSPACE_DIR"
