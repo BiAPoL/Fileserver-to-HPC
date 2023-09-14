@@ -20,6 +20,7 @@ def submit_slurm_job(args):
 
 def train_model(training_data_dir: Path, model_dir: Path, config_file: Path):
     data_dir = training_data_dir.parent
+    print(f'training on data in {training_data_dir}')
     args = [
         'sbatch',
         '-o',
