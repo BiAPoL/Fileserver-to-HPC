@@ -65,7 +65,7 @@ class MyDataGenerator(N2V_DataGenerator):
                     move_axis_to += tuple([net_axes.index(b)])
         imgs = []
         for f in files:
-            img = self.image_reader(f)
+            img = self.image_reader(f, dims=dims)
             assert len(img.shape) == len(dims), "Number of image dimensions doesn't match 'dims'."
 
             img = np.moveaxis(img, move_axis_from, move_axis_to)
@@ -80,7 +80,7 @@ class MyDataGenerator(N2V_DataGenerator):
 
         return imgs
 
-    def image_reader(self, file_path) -> np.array:
+    def image_reader(self, file_path, dims='YX') -> np.array:
         '''Read images of different formats.
 
         Parameters
@@ -98,7 +98,7 @@ class MyDataGenerator(N2V_DataGenerator):
                 "JPEG is not supported, because it is not loss-less and breaks the pixel-wise independence assumption.")
         for ext in supported_filetypes:
             if file_path.endswith(ext):
-                image = AICSImage(file_path)
-                return image.data.astype(np.float32)
+                aics_image = AICSImage(file_path)
+                return aics_image.get_image_data(dimension_order_out=dims).astype(np.float32)
 
         raise ValueError("Filetype '{}' is not supported.".format(file_path))
