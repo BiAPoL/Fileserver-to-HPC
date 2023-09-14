@@ -29,7 +29,7 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path):
     slurmfile = src_dir / 'n2v_predict.slurm'
     for file in files:
         if not (data_dir / "denoised" / (file.name + "_N2V.tif")).exists():
-            args = ['sbatch', '-o', '"' + str(data_dir / 'log' / (file.name + '_n2v.out')) + '"', '"' + str(slurmfile) +'"', '"' + str(file) + '"', '"' + os.environ.get('SIFDIR') + '"']
+            args = ['sbatch', '-o', f'"{data_dir / "log" / f"{file.name}_n2v.out"}"', f'"{slurmfile}"', f'"{file}"', f'"{os.environ.get("SIFDIR")}"']
             jobnum = submit_slurm_job(args)
             jobs.append(jobnum)
         else:
@@ -38,7 +38,7 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path):
     if len(jobs) > 0:
         print("submitted jobs:", jobs)
         cleanup_job_id = os.environ.get('CLEANUP_JOB_ID')
-        args = ['scontrol', 'update', 'job=' + cleanup_job_id, 'dependency="afterany:' + ','.join(jobs) + '"']
+        args = ['scontrol', 'update', f'job={cleanup_job_id}', f'dependency="afterany:{",".join(jobs)}"']
         submit_slurm_job(args)
         print("updated cleanup job dependencies")
 
