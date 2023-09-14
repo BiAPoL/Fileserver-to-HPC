@@ -87,12 +87,8 @@ if __name__ == "__main__":
             models = list(model_dir.glob("*"))
             if len(models) > 0:
                 if (training_data_dir / 'continue_training').exists():
-                    # if there is training data, and model data
-                    if len(models) > 0:
-                        if (models[0] / 'config.json').exists():
-                            config_file = models[0] / 'config.json'
-                        if len(models) > 1:
-                            warn(f"found several models. Using the first model: {str(models[0])}")
+                    if len(models) > 1:
+                        warn(f"found several models. Using the first model: {str(models[0])}")
                 else:
                     predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
                     exit()
