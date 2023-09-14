@@ -24,7 +24,7 @@ def train_model(training_data_dir: Path, model_dir: Path, config_file: Path):
         'sbatch',
         '-o',
         f'"{data_dir / "log" / "n2v_training.out"}"',
-        f'"{training_data_dir / "n2v_train.slurm"}"',
+        f'"{data_dir / "workflow" / "n2v_train.slurm"}"',
         f'"{training_data_dir}"',
         f'"{model_dir}"',
         f'"{config_file}"',
