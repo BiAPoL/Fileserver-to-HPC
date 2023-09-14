@@ -99,5 +99,5 @@ if __name__ == "__main__":
         else:
             model_dir.mkdir(parents=True)
         config = load_config(config_file)
-        train_model(training_data_dir, model_dir, config_file)
-        predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
+        jobnum = train_model(training_data_dir, model_dir, config_file)
+        predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir, dependency_job_id=jobnum)
