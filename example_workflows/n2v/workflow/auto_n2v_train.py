@@ -37,7 +37,14 @@ def train_model(training_data_dir: Path, model_dir: Path, config: dict):
 
     print(
         f"total no. of patches: {patches.shape[0]} \ttraining patches: {X.shape[0]} \tvalidation patches: {X_val.shape[0]}")
-    n2v_config = N2VConfig(X, **config)
+
+    # we let n2v automatically determine the axes of the training data, since
+    # the data generator took care of re-ordering the axes for us
+    train_config = config.copy()
+    del (train_config['axes'])
+
+    # create a n2v config object
+    n2v_config = N2VConfig(X, **train_config)
     print("config vars: ", vars(n2v_config))
     model_name = "auto_n2v"
     if (model_dir / model_name / 'weights_best.h5').exists():
