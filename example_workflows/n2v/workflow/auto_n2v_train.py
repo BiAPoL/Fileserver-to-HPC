@@ -37,7 +37,6 @@ def train_model(training_data_dir: Path, model_dir: Path, config: dict):
 
     print(
         f"total no. of patches: {patches.shape[0]} \ttraining patches: {X.shape[0]} \tvalidation patches: {X_val.shape[0]}")
-    config['axes'] = 'ZYXC'
     n2v_config = N2VConfig(X, **config)
     print("config vars: ", vars(n2v_config))
     model_name = "auto_n2v"
