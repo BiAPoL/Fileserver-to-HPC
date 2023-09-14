@@ -2,10 +2,9 @@
 
 #SBATCH --job-name="n2v"
 #SBATCH --time=08:00:00
-#SBATCH --partition=alpha
-#SBATCH --cpus-per-task=12
-#SBATCH --gres=gpu:1
-#SBATCH --mem-per-cpu=10312M
+#SBATCH --partition=romeo
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=1972
 
 # Setup computational environment, i.e, load desired modules
 # module purge
