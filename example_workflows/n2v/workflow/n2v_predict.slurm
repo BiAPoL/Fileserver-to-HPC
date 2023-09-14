@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name="n2v_predict"
-#SBATCH --time=08:00:00
+#SBATCH --time=01:00:00
 #SBATCH --partition=alpha
 #SBATCH --cpus-per-task=6
 #SBATCH --gres=gpu:1
