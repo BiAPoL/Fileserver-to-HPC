@@ -7,7 +7,7 @@ from utils import load_config
 def train_model(training_data_dir: Path, model_dir: Path, config: dict):
     from utils import MyDataGenerator, supported_filetypes
     from n2v.models import N2VConfig, N2V
-    assert model_dir.exists(), "Model dir does not exist: {}".format(str(model_dir))
+    assert model_dir.exists(), f"Model dir does not exist: {model_dir}"
     datagen = MyDataGenerator()
     print("training")
     print("Model dir: ", str(model_dir))
