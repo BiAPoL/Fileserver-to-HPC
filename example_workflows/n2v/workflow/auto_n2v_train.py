@@ -1,5 +1,7 @@
+import sys
 from pathlib import Path
 from warnings import warn
+from utils import load_config
 
 
 def train_model(training_data_dir: Path, model_dir: Path, config: dict):
@@ -14,7 +16,7 @@ def train_model(training_data_dir: Path, model_dir: Path, config: dict):
     if 'train_batch_size' not in config.keys():
         config['train_batch_size'] = 128
     if 'axes' not in config.keys():
-        config['axes'] = 'TCZYX'
+        config['axes'] = 'TZYXC'
         warn(f"Axes not configured, using default: {config['axes']}")
 
     files = []
@@ -45,3 +47,13 @@ def train_model(training_data_dir: Path, model_dir: Path, config: dict):
     print("begin training")
     history = model.train(X, X_val)
     print('training done')
+
+
+if __name__ == "__main__":
+    for i, arg in enumerate(sys.argv):
+        print(f"Argument {i:>6}: {arg}")
+    training_data_dir = Path(sys.argv[1])
+    model_dir = Path(sys.argv[2])
+    config_file = Path(sys.argv[3])
+    config = load_config(config_file)
+    train_model(training_data_dir=training_data_dir, model_dir=model_dir, config=config)
