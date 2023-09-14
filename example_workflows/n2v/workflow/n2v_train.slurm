@@ -11,7 +11,7 @@ date
 
 data_dir=$(dirname "$1")
 src_dir=$data_dir/workflow
-SIFDIR=$4
+SINGULARITY_FILE_DIR=$4
 
 # Print out variables
 echo "HOME: $HOME"
@@ -22,4 +22,4 @@ echo "model_dir: $2"
 echo "config_file: $3"
 
 # Execute trining in singularity container
-srun singularity exec -C --writable-tmpfs --nv --pwd "$data_dir" -B "$HOME/.ssh:/.ssh" -B "/etc/OpenCL" -B "$data_dir" "$SIFDIR"/devbio-napari_n2v.sif python "$src_dir"/auto_n2v_train.py "$1" "$2" "$3"
+srun singularity exec -C --writable-tmpfs --nv --pwd "$data_dir" -B "$HOME/.ssh:/.ssh" -B "/etc/OpenCL" -B "$data_dir" "$SINGULARITY_FILE_DIR"/devbio-napari_n2v.sif python "$src_dir"/auto_n2v_train.py "$1" "$2" "$3"

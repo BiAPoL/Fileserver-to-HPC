@@ -28,7 +28,7 @@ def train_model(training_data_dir: Path, model_dir: Path, config_file: Path):
         f'"{training_data_dir}"',
         f'"{model_dir}"',
         f'"{config_file}"',
-        f'"{os.environ.get("SIFDIR")}"']
+        f'"{os.environ.get("SINGULARITY_FILE_DIR")}"']
     jobnum = submit_slurm_job(args)
     cleanup_job_id = os.environ.get('CLEANUP_JOB_ID')
     args = ['scontrol', 'update', f'job={cleanup_job_id}', f'dependency="afterany:{jobnum}"']
@@ -50,7 +50,7 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path, dependency_job_id
                     '-o', f'"{data_dir / "log" / f"{file.name}_n2v.out"}"',
                     f'"{slurmfile}"',
                     f'"{file}"',
-                    f'"{os.environ.get("SIFDIR")}"']
+                    f'"{os.environ.get("SINGULARITY_FILE_DIR")}"']
             if dependency_job_id is not None:
                 new_args = args[:3] + [f'--dependency=afterok:{dependency_job_id}'] + args[3:]
                 args = new_args
