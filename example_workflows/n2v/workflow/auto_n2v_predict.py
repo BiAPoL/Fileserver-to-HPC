@@ -38,7 +38,13 @@ if __name__ == "__main__":
     # calculate tiling so that the tiles fit into the GPU memory
     # on the A100 GPUs (48GB memory), the maximum tile size is approximately 3 MB
     n_tiles = image.size / (3 * 2**20)
-    tiles = np.array(image.shape)
+    tiles = np.ones((len(config['axes']),), dtype=np.uint16)
+    if 'C' in config['axes']:
+        tiles[config['axes'].index('C')] = image.shape[config['axes'].index('C')]
+    if 'T' in config['axes']:
+        tiles[config['axes'].index('T')] = image.shape[config['axes'].index('T')]
+    if 'S' in config['axes']:
+        tiles[config['axes'].index('S')] = image.shape[config['axes'].index('S')]
     tiles[config['axes'].index('X')] = 1
     tiles[config['axes'].index('Y')] = 1
     if 'Z' in config['axes']:
