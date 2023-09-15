@@ -37,31 +37,28 @@ if __name__ == "__main__":
 
     # calculate tiling so that the tiles fit into the GPU memory
     # on the A100 GPUs (48GB memory), the maximum tile size is approximately 3 MB
-    n_tiles = image.size / (3 * 2**20)
-    tiles = np.ones((len(config['axes']),), dtype=np.uint16)
-    if 'C' in config['axes']:
-        tiles[config['axes'].index('C')] = image.shape[config['axes'].index('C')]
-    if 'T' in config['axes']:
-        tiles[config['axes'].index('T')] = image.shape[config['axes'].index('T')]
-    if 'S' in config['axes']:
-        tiles[config['axes'].index('S')] = image.shape[config['axes'].index('S')]
-    tiles[config['axes'].index('X')] = 1
-    tiles[config['axes'].index('Y')] = 1
+    total_number_of_tiles = image.size / (3 * 2**20)
+    tiles = np.array(image.shape)
     if 'Z' in config['axes']:
-        tiles[config['axes'].index('Z')] = 1
-    n_tiles /= np.prod(tiles)
-    if n_tiles > 1:
-        tiles[config['axes'].index('Y')] = np.ceil(np.sqrt(n_tiles))
-        tiles[config['axes'].index('X')] = np.ceil(np.sqrt(n_tiles))
+        normalized_axes = 'TZYXC'
+        tiles[1] = 1
+    else:
+        normalized_axes = 'TYXC'
+    tiles[normalized_axes.index('Y')] = 1
+    tiles[normalized_axes.index('X')] = 1
+    total_number_of_tiles /= np.prod(tiles)
+    if total_number_of_tiles > 1:
+        tiles[normalized_axes.index('Y')] = np.ceil(np.sqrt(total_number_of_tiles))
+        tiles[normalized_axes.index('X')] = np.ceil(np.sqrt(total_number_of_tiles))
     tiles = tuple(tiles)
     print("Tiling image: ", tiles)
 
     # predict
-    pred = model.predict(image, axes=config['axes'], n_tiles=tiles)
+    pred = model.predict(image, axes=normalized_axes, n_tiles=tiles)
     print("Prediction shape: ", pred.shape)
 
     # save prediction
     target_path = target_dir / (source_file.name + '_N2V.tif')
     print("Saving: ", str(target_path))
-    csbdeep.io.save_tiff_imagej_compatible(target_path, pred.astype(np.float32), config['axes'])
+    csbdeep.io.save_tiff_imagej_compatible(target_path, pred.astype(np.float32), normalized_axes)
     print('Done')
