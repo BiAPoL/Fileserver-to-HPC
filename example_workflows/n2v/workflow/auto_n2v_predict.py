@@ -36,7 +36,7 @@ if __name__ == "__main__":
     print("Image shape: ", image.shape)
 
     # calculate tiling so that the tiles fit into the GPU memory
-    # on the A100 GPUs (48GB memory), the maximum tile size is approximately 3 MB
+    # on the A100 GPUs (40GB memory), the maximum tile size is approximately 3 MB
     total_number_of_tiles = image.size / (3 * 2**20)
     tiles = np.array(image.shape)
     if 'Z' in config['axes']:
@@ -51,10 +51,12 @@ if __name__ == "__main__":
         tiles[normalized_axes.index('Y')] = np.ceil(np.sqrt(total_number_of_tiles))
         tiles[normalized_axes.index('X')] = np.ceil(np.sqrt(total_number_of_tiles))
     tiles = tuple(tiles)
-    print("Tiling image: ", tiles)
+    print(f"Tiling image along axes: {normalized_axes}: {tiles}")
 
     # predict
-    pred = model.predict(image, axes=normalized_axes, n_tiles=tiles)
+    pred_axes = normalized_axes[1:]
+    tiles = tiles[1:]
+    pred = np.asarray([model.predict(im, axes=pred_axes, n_tiles=tiles) for im in image])
     print("Prediction shape: ", pred.shape)
 
     # save prediction
