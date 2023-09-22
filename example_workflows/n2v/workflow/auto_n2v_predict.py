@@ -8,13 +8,7 @@ import csbdeep.io
 # from biapol_taurus import ProjectFileTransfer
 from utils import load_config
 
-if __name__ == "__main__":
-    print(f"Arguments count: {len(sys.argv)}")
-    for i, arg in enumerate(sys.argv):
-        print(f"Argument {i:>6}: {arg}")
-
-    # define paths
-    source_file = Path(sys.argv[1])
+def n2v_predict(source_file: Path):
     data_dir = source_file.parent
     model_dir = data_dir / 'model'
     target_dir = data_dir / "denoised"
@@ -64,3 +58,13 @@ if __name__ == "__main__":
     print("Saving: ", str(target_path))
     csbdeep.io.save_tiff_imagej_compatible(target_path, pred.astype(np.float32), normalized_axes)
     print('Done')
+
+
+if __name__ == "__main__":
+    print(f"Arguments count: {len(sys.argv)}")
+    for i, arg in enumerate(sys.argv):
+        print(f"Argument {i:>6}: {arg}")
+
+    # define paths
+    source_file = Path(sys.argv[1])
+    n2v_predict(source_file)
