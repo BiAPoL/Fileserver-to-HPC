@@ -3,9 +3,8 @@ import os
 from pathlib import Path
 from shutil import copytree
 from warnings import warn
-# from biapol_taurus import ProjectFileTransfer
-from training import train_model
 from utils import load_config, supported_filetypes
+
 
 def submit_slurm_job(args):
     import subprocess
@@ -19,7 +18,26 @@ def submit_slurm_job(args):
     return jobnum
 
 
-def predict(data_dir: Path, model_dir: Path, target_dir: Path):
+def train_model(training_data_dir: Path, model_dir: Path, config_file: Path):
+    data_dir = training_data_dir.parent
+    print(f'training on data in {training_data_dir}')
+    args = [
+        'sbatch',
+        '-o',
+        f'"{data_dir / "log" / "n2v_training.out"}"',
+        f'"{data_dir / "workflow" / "n2v_train.slurm"}"',
+        f'"{training_data_dir}"',
+        f'"{model_dir}"',
+        f'"{config_file}"',
+        f'"{os.environ.get("SINGULARITY_FILE_DIR")}"']
+    jobnum = submit_slurm_job(args)
+    cleanup_job_id = os.environ.get('CLEANUP_JOB_ID')
+    args = ['scontrol', 'update', f'job={cleanup_job_id}', f'dependency="afterany:{jobnum}"']
+    submit_slurm_job(args)
+    return jobnum
+
+
+def predict(data_dir: Path, model_dir: Path, target_dir: Path, dependency_job_id: str = None):
     files = []
     for type in supported_filetypes:
         files.extend(data_dir.glob('*' + type))
@@ -29,7 +47,14 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path):
     slurmfile = src_dir / 'n2v_predict.slurm'
     for file in files:
         if not (data_dir / "denoised" / (file.name + "_N2V.tif")).exists():
-            args = ['sbatch', '-o', '"' + str(data_dir / 'log' / (file.name + '_n2v.out')) + '"', '"' + str(slurmfile) +'"', '"' + str(file) + '"', '"' + os.environ.get('SIFDIR') + '"']
+            args = ['sbatch',
+                    '-o', f'"{data_dir / "log" / f"{file.name}_n2v.out"}"',
+                    f'"{slurmfile}"',
+                    f'"{file}"',
+                    f'"{os.environ.get("SINGULARITY_FILE_DIR")}"']
+            if dependency_job_id is not None:
+                new_args = args[:3] + [f'--dependency=afterok:{dependency_job_id}'] + args[3:]
+                args = new_args
             jobnum = submit_slurm_job(args)
             jobs.append(jobnum)
         else:
@@ -38,7 +63,7 @@ def predict(data_dir: Path, model_dir: Path, target_dir: Path):
     if len(jobs) > 0:
         print("submitted jobs:", jobs)
         cleanup_job_id = os.environ.get('CLEANUP_JOB_ID')
-        args = ['scontrol', 'update', 'job=' + cleanup_job_id, 'dependency="afterany:' + ','.join(jobs) + '"']
+        args = ['scontrol', 'update', f'job={cleanup_job_id}', f'dependency="afterany:{",".join(jobs)}"']
         submit_slurm_job(args)
         print("updated cleanup job dependencies")
 
@@ -62,18 +87,13 @@ if __name__ == "__main__":
             models = list(model_dir.glob("*"))
             if len(models) > 0:
                 if (training_data_dir / 'continue_training').exists():
-                    # if there is training data, and model data
-                    if len(models) > 0:
-                        if (models[0] / 'config.json').exists():
-                            config_file = models[0] / 'config.json'
-                        if len(models) > 1:
-                            warn(f"found several models. Using the first model: {str(models[0])}")
+                    if len(models) > 1:
+                        warn(f"found several models. Using the first model: {str(models[0])}")
                 else:
                     predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
                     exit()
         else:
             model_dir.mkdir(parents=True)
         config = load_config(config_file)
-        train_model(training_data_dir, model_dir, config)
-        predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir)
-    
+        jobnum = train_model(training_data_dir, model_dir, config_file)
+        predict(data_dir=data_dir, model_dir=model_dir, target_dir=target_dir, dependency_job_id=jobnum)

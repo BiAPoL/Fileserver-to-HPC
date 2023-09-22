@@ -1,11 +1,13 @@
+import sys
 from pathlib import Path
 from warnings import warn
+from utils import load_config
 
 
 def train_model(training_data_dir: Path, model_dir: Path, config: dict):
     from utils import MyDataGenerator, supported_filetypes
     from n2v.models import N2VConfig, N2V
-    assert model_dir.exists(), "Model dir does not exist: {}".format(str(model_dir))
+    assert model_dir.exists(), f"Model dir does not exist: {model_dir}"
     datagen = MyDataGenerator()
     print("training")
     print("Model dir: ", str(model_dir))
@@ -14,7 +16,7 @@ def train_model(training_data_dir: Path, model_dir: Path, config: dict):
     if 'train_batch_size' not in config.keys():
         config['train_batch_size'] = 128
     if 'axes' not in config.keys():
-        config['axes'] = 'TCZYX'
+        config['axes'] = 'TZYXC'
         warn(f"Axes not configured, using default: {config['axes']}")
 
     files = []
@@ -35,8 +37,14 @@ def train_model(training_data_dir: Path, model_dir: Path, config: dict):
 
     print(
         f"total no. of patches: {patches.shape[0]} \ttraining patches: {X.shape[0]} \tvalidation patches: {X_val.shape[0]}")
-    config['axes'] = 'ZYXC'
-    n2v_config = N2VConfig(X, **config)
+
+    # we let n2v automatically determine the axes of the training data, since
+    # the data generator took care of re-ordering the axes for us
+    train_config = config.copy()
+    del (train_config['axes'])
+
+    # create a n2v config object
+    n2v_config = N2VConfig(X, **train_config)
     print("config vars: ", vars(n2v_config))
     model_name = "auto_n2v"
     if (model_dir / model_name / 'weights_best.h5').exists():
@@ -45,3 +53,13 @@ def train_model(training_data_dir: Path, model_dir: Path, config: dict):
     print("begin training")
     history = model.train(X, X_val)
     print('training done')
+
+
+if __name__ == "__main__":
+    for i, arg in enumerate(sys.argv):
+        print(f"Argument {i:>6}: {arg}")
+    training_data_dir = Path(sys.argv[1])
+    model_dir = Path(sys.argv[2])
+    config_file = Path(sys.argv[3])
+    config = load_config(config_file)
+    train_model(training_data_dir=training_data_dir, model_dir=model_dir, config=config)
